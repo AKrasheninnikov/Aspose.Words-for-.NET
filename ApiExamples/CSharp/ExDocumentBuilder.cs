@@ -620,7 +620,7 @@ namespace ApiExamples
             builder.CellFormat.Width = 300;
             builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;
             builder.CellFormat.Shading.BackgroundPatternColor = Color.GreenYellow;
-
+            
             builder.RowFormat.HeightRule = HeightRule.Exactly;
             builder.RowFormat.Height = 50;
             builder.RowFormat.Borders.LineStyle = LineStyle.Engrave3D;
@@ -1325,6 +1325,8 @@ namespace ApiExamples
             //ExFor:ParagraphFormat.FirstLineIndent
             //ExFor:ParagraphFormat.Alignment
             //ExFor:ParagraphFormat.KeepTogether
+            //ExFor:ParagraphFormat.AddSpaceBetweenFarEastAndAlpha
+            //ExFor:ParagraphFormat.AddSpaceBetweenFarEastAndDigit
             //ExId:DocumentBuilderInsertParagraph
             //ExSummary:Shows how to insert a paragraph into the document.
             Document doc = new Document();
@@ -1342,6 +1344,8 @@ namespace ApiExamples
             ParagraphFormat paragraphFormat = builder.ParagraphFormat;
             paragraphFormat.FirstLineIndent = 8;
             paragraphFormat.Alignment = ParagraphAlignment.Justify;
+            paragraphFormat.AddSpaceBetweenFarEastAndAlpha = true;
+            paragraphFormat.AddSpaceBetweenFarEastAndDigit = true;
             paragraphFormat.KeepTogether = true;
 
             builder.Writeln("A whole paragraph.");
@@ -1996,6 +2000,51 @@ namespace ApiExamples
         }
 
         [Test]
+        public void NumberFormat()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            // Add chart with default data.
+            Shape shape = builder.InsertChart(ChartType.Line, 432, 252);
+            Chart chart = shape.Chart;
+            chart.Title.Text = "Data Labels With Different Number Format";
+
+            // Delete default generated series.
+            chart.Series.Clear();
+
+            // Add new series
+            ChartSeries series0 = chart.Series.Add("AW Series 0", new string[] { "AW0", "AW1", "AW2" }, new double[] { 2.5, 1.5, 3.5 });
+
+            // Add DataLabel to the first point of the first series.
+            ChartDataLabel chartDataLabel0 = series0.DataLabels.Add(0);
+            chartDataLabel0.ShowValue = true;
+
+            // Set currency format code.
+            chartDataLabel0.NumberFormat.FormatCode = "\"$\"#,##0.00";
+
+            ChartDataLabel chartDataLabel1 = series0.DataLabels.Add(1);
+            chartDataLabel1.ShowValue = true;
+
+            // Set date format code.
+            chartDataLabel1.NumberFormat.FormatCode = "d/mm/yyyy";
+
+            ChartDataLabel chartDataLabel2 = series0.DataLabels.Add(2);
+            chartDataLabel2.ShowValue = true;
+
+            // Set percentage format code.
+            chartDataLabel2.NumberFormat.FormatCode = "0.00%";
+
+            // Or you can set format code to be linked to a source cell,
+            // in this case NumberFormat will be reset to general and inherited from a source cell.
+            chartDataLabel2.NumberFormat.IsLinkedToSource = true;
+
+            doc.Save(MyDir + @"\Artifacts\DocumentBuilder.NumberFormat Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\DocumentBuilder.NumberFormat Out.docx", MyDir + @"\Golds\DocumentBuilder.NumberFormat Gold.docx"));
+        }
+
+        [Test]
         public void DataArraysWrongSize()
         {
             Document doc = new Document();
@@ -2103,12 +2152,11 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder();
             Document document = builder.Document;
 
-            Field field = builder.InsertField("-78365 432,19 \\# \"### ### ###.000\"", null);
+            Field field = builder.InsertField("=-1234567.89 \\# \"### ### ###.000\"", null);
             document.FieldOptions.ResultFormatter = new FieldResultFormatter("[{0}]", null);
 
             field.Update();
-            ////Assert.AreEqual("[-1234567.89]", field.Result);
-            document.Save(MyDir + "123.docx");
+            Assert.AreEqual("[-1234567.89]", field.Result);
         }
 
         private class FieldResultFormatter : IFieldResultFormatter
@@ -2119,7 +2167,7 @@ namespace ApiExamples
                 mDateFormat = dateFormat;
             }
 
-            public override string FormatNumeric(double value, string format)
+            public string FormatNumeric(double value, string format)
             {
                 mNumberFormatInvocations.Add(new object[] { value, format });
 
@@ -2128,7 +2176,7 @@ namespace ApiExamples
                     : string.Format(mNumberFormat, value);
             }
 
-            public override string FormatDateTime(DateTime value, string format, CalendarType calendarType)
+            public string FormatDateTime(DateTime value, string format, CalendarType calendarType)
             {
                 mDateFormatInvocations.Add(new object[] { value, format, calendarType });
 
@@ -2137,12 +2185,12 @@ namespace ApiExamples
                     : string.Format(mDateFormat, value);
             }
 
-            public override string Format(string value, GeneralFormat format)
+            public string Format(string value, GeneralFormat format)
             {
                 throw new NotImplementedException();
             }
 
-            public override string Format(double value, GeneralFormat format)
+            public string Format(double value, GeneralFormat format)
             {
                 throw new NotImplementedException();
             }

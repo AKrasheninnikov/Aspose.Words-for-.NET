@@ -7,7 +7,6 @@ namespace ApiExamples.TestData
     {
         public Color Color { get; set; }
         public String ColorName { get; set; }
-
         public String Description { get; set; }
     }
 }

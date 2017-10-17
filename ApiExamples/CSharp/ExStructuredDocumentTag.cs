@@ -5,6 +5,7 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+using System;
 using Aspose.Words;
 using Aspose.Words.Markup;
 using NUnit.Framework;
@@ -52,6 +53,45 @@ namespace ApiExamples
 
             StructuredDocumentTag sdt = (StructuredDocumentTag)sdts[0];
             Assert.AreEqual(true, sdt.Checked);
+        }
+
+        [Test]
+        public void CreatingCustomXml()
+        {
+            Document doc = new Document();
+
+            CustomXmlPart xmlPart = doc.CustomXmlParts.Add(Guid.NewGuid().ToString("B"), "<root><text>Hello, World!</text></root>");
+
+            StructuredDocumentTag sdt = new StructuredDocumentTag(doc, SdtType.PlainText, MarkupLevel.Block);
+            sdt.XmlMapping.SetMapping(xmlPart, "/root[1]/text[1]", "");
+            doc.FirstSection.Body.AppendChild(sdt);
+
+            doc.Save(MyDir + @"\Artifacts\CustomXml Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\CustomXml Out.docx", MyDir + @"\Golds\CustomXml Gold.docx"));
+        }
+
+        [Test]
+        public void ClearTextFromStructuredDocumentTags()
+        {
+            Document doc = new Document(MyDir + "TestRepeatingSection.docx");
+
+            NodeCollection sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
+
+            Assert.IsNotNull(sdts);
+
+            foreach (StructuredDocumentTag sdt in sdts)
+            {
+                sdt.Clear();
+            }
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
+
+            Assert.AreEqual("Enter any content that you want to repeat, including other content controls. You can also insert this control around table rows in order to repeat parts of a table.\r", sdts[0].GetText());
+            Assert.AreEqual("Click here to enter text.\f", sdts[2].GetText());
         }
     }
 }

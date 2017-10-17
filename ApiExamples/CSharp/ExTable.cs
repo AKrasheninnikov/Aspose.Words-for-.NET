@@ -80,7 +80,7 @@ namespace ApiExamples
         [Test]
         public void CalcuateDepthOfNestedTablesCaller()
         {
-            this.CalcuateDepthOfNestedTables();
+            this.CalculateDepthOfNestedTables();
         }
 
         //ExStart
@@ -90,7 +90,7 @@ namespace ApiExamples
         //ExFor:TableCollection
         //ExFor:NodeCollection.Count
         //ExSummary:Shows how to find out if a table contains another table or if the table itself is nested inside another table.
-        public void CalcuateDepthOfNestedTables()
+        public void CalculateDepthOfNestedTables()
         {
             Document doc = new Document(MyDir + "Table.NestedTables.doc");
             int tableIndex = 0;
@@ -418,7 +418,7 @@ namespace ApiExamples
 
             // Retrieve the first row in the table.
             Row firstRow = table.FirstRow;
-
+            
             // Modify some row level properties.
             firstRow.RowFormat.Borders.LineStyle = LineStyle.None;
             firstRow.RowFormat.HeightRule = HeightRule.Auto;
@@ -461,6 +461,20 @@ namespace ApiExamples
             Assert.AreEqual(30, table.FirstRow.FirstCell.CellFormat.Width);
             Assert.AreEqual(TextOrientation.Downward, table.FirstRow.FirstCell.CellFormat.Orientation);
             Assert.AreEqual(Color.LightGreen.ToArgb(), table.FirstRow.FirstCell.CellFormat.Shading.ForegroundPatternColor.ToArgb());
+            
+        }
+
+        [Test]
+        public void GetDistance()
+        {
+            Document doc = new Document(MyDir + "Table.Distance.docx");
+
+            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+
+            Assert.AreEqual(11.35d, table.DistanceTop);
+            Assert.AreEqual(26.35d, table.DistanceBottom);
+            Assert.AreEqual(9.05d, table.DistanceLeft);
+            Assert.AreEqual(22.7d, table.DistanceRight);
         }
 
         [Test]

@@ -52,12 +52,18 @@ namespace ApiExamples
             //ExStart
             //ExFor:PageSetup.DifferentFirstPageHeaderFooter
             //ExFor:PageSetup.OddAndEvenPagesHeaderFooter
+            //ExFor:PageSetup.LayoutMode
+            //ExFor:PageSetup.CharactersPerLine
+            //ExFor:PageSetup.LinesPerPage
             //ExSummary:Creates headers and footers different for first, even and odd pages using DocumentBuilder.
             DocumentBuilder builder = new DocumentBuilder();
 
             PageSetup ps = builder.PageSetup;
             ps.DifferentFirstPageHeaderFooter = true;
             ps.OddAndEvenPagesHeaderFooter = true;
+            ps.LayoutMode = SectionLayoutMode.LineGrid;
+            ps.CharactersPerLine = 1;
+            ps.LinesPerPage = 1;
 
             builder.MoveToHeaderFooter(HeaderFooterType.HeaderFirst);
             builder.Writeln("First page header.");

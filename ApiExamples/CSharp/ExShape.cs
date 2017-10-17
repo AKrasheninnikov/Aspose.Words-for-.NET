@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using Aspose.Words;
 using Aspose.Words.Drawing;
+using Aspose.Words.Drawing.Charts;
 using Aspose.Words.Drawing.Ole;
 using Aspose.Words.Math;
 using Aspose.Words.Rendering;
@@ -313,6 +314,15 @@ namespace ApiExamples
             Assert.AreEqual((float)39.25, renderer.OpaqueBoundsInPoints.Height);
         }
 
+        [Test]
+        public void ResolutionDefaultValues()
+        {
+            ImageSaveOptions imageOptions = new ImageSaveOptions(SaveFormat.Jpeg);
+            
+            Assert.AreEqual(96, imageOptions.HorizontalResolution);
+            Assert.AreEqual(96, imageOptions.VerticalResolution);
+        }
+
         //For assert result of the test you need to open "Shape.OfficeMath.svg" and check that OfficeMath node is there
         [Test]
         public void SaveShapeObjectAsImage()
@@ -365,7 +375,29 @@ namespace ApiExamples
         }
 
         [Test]
-        public void OfficeMathDisplayNested()
+        public void CannotBeSetDisplayWithInlineJustification()
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+            officeMath.DisplayType = OfficeMathDisplayType.Display;
+            
+            Assert.Throws<ArgumentException>(() => officeMath.Justification = OfficeMathJustification.Inline);
+        }
+
+        [Test]
+        public void CannotBeSetInlineDisplayWithJustification()
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+            officeMath.DisplayType = OfficeMathDisplayType.Inline;
+
+            Assert.Throws<ArgumentException>(() => officeMath.Justification = OfficeMathJustification.Center);
+        }
+
+        [Test]
+        public void OfficeMathDisplayNestedObjects()
         {
             Document doc = new Document(MyDir + "Shape.NestedOfficeMath.docx");
 
@@ -374,8 +406,6 @@ namespace ApiExamples
             //Always inline
             Assert.AreEqual(OfficeMathDisplayType.Inline, officeMath.DisplayType);
             Assert.AreEqual(OfficeMathJustification.Inline, officeMath.Justification);
-
-            //Bug?:When we change displayed type, there is no exception
         }
 
         [Test]
@@ -412,6 +442,36 @@ namespace ApiExamples
 
             shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
             Assert.AreEqual(isLocked, shape.AspectRatioLocked);
+        }
+
+        [Test]
+        public void AspectRatioLockedDefaultValue()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            // The best place for the watermark image is in the header or footer so it is shown on every page.
+            builder.MoveToHeaderFooter(HeaderFooterType.HeaderPrimary);
+
+            Image image = Image.FromFile(MyDir + @"\Images\Watermark.png");
+
+            // Insert a floating picture.
+            Shape shape = builder.InsertImage(image);
+            shape.WrapType = WrapType.None;
+            shape.BehindText = true;
+
+            shape.RelativeHorizontalPosition = RelativeHorizontalPosition.Page;
+            shape.RelativeVerticalPosition = RelativeVerticalPosition.Page;
+
+            // Calculate image left and top position so it appears in the centre of the page.
+            shape.Left = (builder.PageSetup.PageWidth - shape.Width) / 2;
+            shape.Top = (builder.PageSetup.PageHeight - shape.Height) / 2;
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+            Assert.AreEqual(true, shape.AspectRatioLocked);
         }
 
         [Test]

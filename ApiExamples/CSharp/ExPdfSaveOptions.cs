@@ -172,5 +172,22 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\ColorMode.PdfGrayscaleMode.pdf", pdfSaveOptions);
             //ExEnd
         }
+
+        [Test]
+        public void WindowsBarPdfTitle()
+        {
+            Document doc = new Document(MyDir + "Rendering.doc");
+            doc.BuiltInDocumentProperties.Title = "Windows bar pdf title";
+            
+            PdfSaveOptions pdfSaveOptions = new PdfSaveOptions();
+            pdfSaveOptions.DisplayDocTitle = true;
+
+            doc.Save(MyDir + "PdfTitle out.pdf", pdfSaveOptions);
+
+            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(MyDir + "PdfTitle out.pdf");
+
+            Assert.IsTrue(pdfDocument.DisplayDocTitle);
+            Assert.AreEqual("Windows bar pdf title", pdfDocument.Info.Title);
+        }
     }
 }

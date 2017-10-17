@@ -165,6 +165,28 @@ namespace ApiExamples
             doc.Range.Replace(new Regex("The Beginning"), "", options);
         }
 
+        //Bug, after saving document field.isDirty always false
+        [Test]
+        public void InsertAndUpdateDirtyField()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            Field fieldTOC = builder.InsertTableOfContents("\\o \"1-3\" \\h \\z \\u");
+            fieldTOC.IsDirty = true;
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            LoadOptions loadOptions = new LoadOptions();
+            loadOptions.UpdateDirtyFields = true;
+
+            doc = new Document(dstStream, loadOptions);
+            Field tocField = doc.Range.Fields[0];
+
+            Assert.IsTrue(tocField.IsDirty);
+        }
+
         public class InsertTcFieldHandler : IReplacingCallback
         {
             // Store the text and switches to be used for the TC fields.
@@ -335,7 +357,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             Field field = builder.InsertField("MERGEFIELD Date");
-
+            
             FieldFormat format = field.Format;
 
             format.DateTimeFormat = "dddd, MMMM dd, yyyy";

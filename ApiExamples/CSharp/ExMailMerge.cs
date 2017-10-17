@@ -477,6 +477,8 @@ namespace ApiExamples
             doc.MailMerge.ExecuteWithRegions(data);
 
             doc.Save(MyDir + @"\Artifacts\MailMerge.CleanUp Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\MailMerge.CleanUp Out.docx", MyDir + @"\Golds\MailMerge.CleanUp Gold.docx"));
         }
 
         /// <summary>

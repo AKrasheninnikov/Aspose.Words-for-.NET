@@ -441,8 +441,10 @@ namespace ApiExamples
 
             // Create the Aspose.Words' implementation of the .NET print document 
             // and pass the printer settings from the dialog to the print document.
+            // Use 'CachePrinterSettings' to reduce time of first call of Print() method.
             AsposeWordsPrintDocument awPrintDoc = new AsposeWordsPrintDocument(doc);
             awPrintDoc.PrinterSettings = printDlg.PrinterSettings;
+            awPrintDoc.CachePrinterSettings();
 
             // Hide and invalidate preview is a hack for print preview to show on top.
             previewDlg.Hide();

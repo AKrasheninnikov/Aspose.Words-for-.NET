@@ -24,9 +24,9 @@ namespace ApiExamples
         [TestCase(SaveFormat.Epub)]
         public void ExportPageMargins(SaveFormat saveFormat)
         {
-            var doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.SaveFormat = saveFormat;
             saveOptions.ExportPageMargins = true;
 
@@ -43,9 +43,9 @@ namespace ApiExamples
         [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Text)]
         public void ExportOfficeMath(SaveFormat saveFormat, HtmlOfficeMathOutputMode outputMode)
         {
-            var doc = new Document(MyDir + "OfficeMath.docx");
+            Document doc = new Document(MyDir + "OfficeMath.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.OfficeMathOutputMode = outputMode;
 
             Save(doc, @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
@@ -78,9 +78,9 @@ namespace ApiExamples
         {
             string[] dirFiles;
 
-            var doc = new Document(MyDir + "HtmlSaveOptions.ExportTextBoxAsSvg.docx");
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportTextBoxAsSvg.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.ExportTextBoxAsSvg = textBoxAsSvg;
 
             Save(doc, @"\Artifacts\HtmlSaveOptions.ExportTextBoxAsSvg." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
@@ -139,14 +139,14 @@ namespace ApiExamples
         [TestCase(false)]
         public void ExportUrlForLinkedImage(bool export)
         {
-            var doc = new Document(MyDir + "HtmlSaveOptions.ExportUrlForLinkedImage.docx");
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportUrlForLinkedImage.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.ExportOriginalUrlForLinkedImages = export;
 
             doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.ExportUrlForLinkedImage.html", saveOptions);
 
-            var dirFiles = Directory.GetFiles(MyDir + @"\Artifacts\", "HtmlSaveOptions.ExportUrlForLinkedImage.001.png", SearchOption.AllDirectories);
+            string[] dirFiles = Directory.GetFiles(MyDir + @"\Artifacts\", "HtmlSaveOptions.ExportUrlForLinkedImage.001.png", SearchOption.AllDirectories);
 
             if (dirFiles.Length == 0)
                 DocumentHelper.FindTextInFile(MyDir + @"\Artifacts\HtmlSaveOptions.ExportUrlForLinkedImage.html", "<img src=\"http://www.aspose.com/images/aspose-logo.gif\"");
@@ -160,9 +160,9 @@ namespace ApiExamples
         [TestCase(false)]
         public void ExportRoundtripInformation(bool valueHtml)
         {
-            var doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.ExportRoundtripInformation = valueHtml;
 
             doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.RoundtripInformation.html");
@@ -177,7 +177,7 @@ namespace ApiExamples
         public void RoundtripInformationDefaulValue()
         {
             //Assert that default value is true for HTML and false for MHTML and EPUB.
-            var saveOptions = new HtmlSaveOptions(SaveFormat.Html);
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions(SaveFormat.Html);
             Assert.AreEqual(true, saveOptions.ExportRoundtripInformation);
 
             saveOptions = new HtmlSaveOptions(SaveFormat.Mhtml);
@@ -185,6 +185,45 @@ namespace ApiExamples
 
             saveOptions = new HtmlSaveOptions(SaveFormat.Epub);
             Assert.AreEqual(false, saveOptions.ExportRoundtripInformation);
+        }
+
+        [Test]
+        public void ConfigForSavingExternalResources()
+        {
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
+
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.CssStyleSheetType = CssStyleSheetType.External;
+            saveOptions.ExportFontResources = true;
+            saveOptions.ResourceFolder = "Resources";
+            saveOptions.ResourceFolderAlias = "https://www.aspose.com/";
+
+            doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.ExportPageMargins Out.html", saveOptions);
+
+            string[] imageFiles = Directory.GetFiles(MyDir + @"\Artifacts\Resources\", "*.png", SearchOption.AllDirectories);
+            Assert.AreEqual(3, imageFiles.Length);
+
+            string[] fontFiles = Directory.GetFiles(MyDir + @"\Artifacts\Resources\", "*.ttf", SearchOption.AllDirectories);
+            Assert.AreEqual(2, fontFiles.Length);
+
+            string[] cssFiles = Directory.GetFiles(MyDir + @"\Artifacts\Resources\", "*.css", SearchOption.AllDirectories);
+            Assert.AreEqual(1, cssFiles.Length);
+
+            DocumentHelper.FindTextInFile(MyDir + @"\Artifacts\HtmlSaveOptions.ExportPageMargins Out.html", "<link href=\"https://www.aspose.com/HtmlSaveOptions.ExportPageMargins Out.css\"");
+        }
+
+        [Test]
+        public void ConvertFontsAsBase64()
+        {
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
+
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
+            saveOptions.CssStyleSheetType = CssStyleSheetType.External;
+            saveOptions.ResourceFolder = "Resources";
+            saveOptions.ExportFontResources = true;
+            saveOptions.ExportFontsAsBase64 = true;
+            
+            doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.ExportPageMargins Out.html", saveOptions);
         }
     }
 }
