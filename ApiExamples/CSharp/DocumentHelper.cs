@@ -298,32 +298,33 @@ namespace ApiExamples
         {
             if (File.Exists(firstPdf) && File.Exists(secondPdf))
             {
-                PdfReader reader = new PdfReader(firstPdf);
-                for (int page = 1; page <= reader.NumberOfPages; page++)
+                PdfReader readfirstPdf = new PdfReader(firstPdf);
+                for (int page = 1; page <= readfirstPdf.NumberOfPages; page++)
                 {
                     ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                    firstFile += PdfTextExtractor.GetTextFromPage(reader, page, strategy);
+                    firstFile += PdfTextExtractor.GetTextFromPage(readfirstPdf, page, strategy);
                 }
 
-                PdfReader reader1 = new PdfReader(secondPdf);
-                for (int page = 1; page <= reader1.NumberOfPages; page++)
+                readfirstPdf.Close();
+
+                PdfReader readSecondPdf = new PdfReader(secondPdf);
+                for (int page = 1; page <= readSecondPdf.NumberOfPages; page++)
                 {
                     ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                    secondFile += PdfTextExtractor.GetTextFromPage(reader1, page, strategy);
+                    secondFile += PdfTextExtractor.GetTextFromPage(readSecondPdf, page, strategy);
                 }
+
+                readSecondPdf.Close();
             }
             else
             {
                 Console.WriteLine("Files does not exist.");
             }
 
-            List<string> file1Diff;
-            List<string> file2Diff;
-
             IEnumerable<string> file1 = firstFile.Trim().Split('\r', '\n');
             IEnumerable<string> file2 = secondFile.Trim().Split('\r', '\n');
-            file1Diff = file1.ToList();
-            file2Diff = file2.ToList();
+            List<string> file1Diff = file1.ToList();
+            List<string> file2Diff = file2.ToList();
 
             if (file2.Count() > file1.Count())
             {
@@ -370,6 +371,19 @@ namespace ApiExamples
                     }
                 }
             }
+}
+        /// <summary>
+        /// Get paragraph text of the current document
+        /// </summary>
+        /// <param name="doc">
+        /// Current document
+        /// </param>
+        /// <param name="paraIndex">
+        /// Paragraph number from collection
+        /// </param>
+        internal static string GetSectionText(Document doc, int secIndex)
+        {
+            return doc.Sections[secIndex].GetText();
         }
     }
 }

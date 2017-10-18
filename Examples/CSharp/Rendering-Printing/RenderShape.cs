@@ -77,9 +77,9 @@ namespace Aspose.Words.Examples.CSharp.Rendering_and_Printing
             Console.WriteLine("\nShape rendered to stream successfully.\nFile saved at " + dataDir);
         }
 
+        // ExStart:RenderShapeToGraphics
         public static void RenderShapeToGraphics(string dataDir, Shape shape)
         {
-            // ExStart:RenderShapeToGraphics
             ShapeRenderer r = shape.GetShapeRenderer();
 
             // Find the size that the shape will be rendered to at the specified scale and resolution.
@@ -111,9 +111,9 @@ namespace Aspose.Words.Examples.CSharp.Rendering_and_Printing
                 image.Save(dataDir, ImageFormat.Png);
                 Console.WriteLine("\nShape rendered to graphics successfully.\nFile saved at " + dataDir);
             }
-            // ExEnd:RenderShapeToGraphics
-           
         }
+        // ExEnd:RenderShapeToGraphics
+
         public static void RenderCellToImage(string dataDir, Document doc)
         {
             // ExStart:RenderCellToImage
@@ -239,13 +239,13 @@ namespace Aspose.Words.Examples.CSharp.Rendering_and_Printing
             renderer.Save(stream, imageOptions);
             shape.Remove();
 
-            Rectangle crop = renderer.GetOpaqueBoundsInPixels(imageOptions.Scale, imageOptions.Resolution);
+            Rectangle crop = renderer.GetOpaqueBoundsInPixels(imageOptions.Scale, imageOptions.HorizontalResolution, imageOptions.VerticalResolution);
 
             // Load the image into a new bitmap.
             using (Bitmap renderedImage = new Bitmap(stream))
             {
                 Bitmap croppedImage = new Bitmap(crop.Width, crop.Height);
-                croppedImage.SetResolution(imageOptions.Resolution, imageOptions.Resolution);
+                croppedImage.SetResolution(imageOptions.HorizontalResolution, imageOptions.VerticalResolution);
 
                 // Create the final image with the proper background color.
                 using (Graphics g = Graphics.FromImage(croppedImage))

@@ -27,6 +27,10 @@ using System.Linq;
 using System.Text;
 using LINQ = Aspose.Words.Examples.CSharp.LINQ;
 using QucikStart = Aspose.Words.Examples.CSharp.Quick_Start;
+using Aspose.Words.Examples.CSharp.Programming_Documents.Working_with_StructuredDocumentTag;
+using Aspose.Words.Examples.CSharp.Programming_Documents.Working_with_Signature;
+using Aspose.Words.Examples.CSharp.Loading_and_Saving;
+using Aspose.Words.Examples.CSharp.Rendering_Printing;
 
 namespace Aspose.Words.Examples.CSharp
 {
@@ -66,6 +70,7 @@ namespace Aspose.Words.Examples.CSharp
             //// =====================================================
             //// =====================================================
 
+            //Save_Options.Run();
             // OpenEncryptedDocument.Run();
             // LoadAndSaveToDisk.Run();
             // LoadAndSaveToStream.Run();
@@ -87,6 +92,8 @@ namespace Aspose.Words.Examples.CSharp
             // ConvertDocumentToHtmlWithRoundtrip.Run();
             // DetectDocumentSignatures.Run();
             // SaveAsTxt.Run();
+
+            //SaveOptionsHtmlFixed.Run();
 
             //// =====================================================
             //// =====================================================
@@ -137,6 +144,7 @@ namespace Aspose.Words.Examples.CSharp
             // ProcessComments.Run();
             // AddComments.Run();
             // AnchorComment.Run();
+            // CommentReply.Run();
 
             //// ConvertUtil
             //// =====================================================
@@ -145,6 +153,7 @@ namespace Aspose.Words.Examples.CSharp
             //// Document
             //// =====================================================
 
+            // SigningSignatureLine.Run();
             // ExtractContentBetweenParagraphs.Run();
             // ExtractContentBetweenBlockLevelNodes.Run();
             // ExtractContentBetweenParagraphStyles.Run();
@@ -186,6 +195,7 @@ namespace Aspose.Words.Examples.CSharp
             // ComboBoxContentControl.Run();
             // UpdateContentControls.Run();
             // GenerateACustomBarCodeImage.Run();
+            // WorkingWithSaveOptions.Run();
 
             //// Fields
             //// =====================================================
@@ -212,6 +222,8 @@ namespace Aspose.Words.Examples.CSharp
             // RenameMergeFields.Run();
             // ChangeFieldUpdateCultureSource.Run();
             // GetFieldNames.Run();
+            //InsertTOAFieldWithoutDocumentBuilder.Run();
+            //InsertIncludeFieldWithoutDocumentBuilder.Run();
 
             //// Images
             //// =====================================================
@@ -259,7 +271,8 @@ namespace Aspose.Words.Examples.CSharp
 
             //// Tables
             //// =====================================================
-            // AutoFitTableToWindow.Run();
+            //AutoFitTableToWindow.Run();
+            //BuildTableFromDataTable.Run();
             // AutoFitTableToContents.Run();
             // AutoFitTableToFixedColumnWidths.Run();
             // InsertTableUsingDocumentBuilder.Run();
@@ -276,7 +289,7 @@ namespace Aspose.Words.Examples.CSharp
             // JoiningAndSplittingTable.Run();
             // MergedCells.Run();
             // KeepTablesAndRowsBreaking.Run();
-
+            // TablePosition.Run();
             //// Sections
             //// =====================================================
             // SectionsAccessByIndex.Run();
@@ -287,6 +300,14 @@ namespace Aspose.Words.Examples.CSharp
             // CloneSection.Run();
             // CopySection.Run();
 
+            //// StructuredDocumentTag 
+            //// =====================================================
+            //BindSDTtoCustomXmlPart.Run();
+            //ClearContentsControl.Run();
+
+            //// EndNote and Footnote 
+            //// =====================================================
+            // WorkingWithFootnote.Run();
 
             //// =====================================================
             //// =====================================================
@@ -334,6 +355,7 @@ namespace Aspose.Words.Examples.CSharp
             // HyphenateWordsOfLanguages.Run();
             // LoadHyphenationDictionaryForLanguage.Run();
             // PrintProgressDialog.Run();         
+            // Print_CachePrinterSettings.Run();
 
             //// =====================================================
             //// =====================================================
@@ -357,7 +379,7 @@ namespace Aspose.Words.Examples.CSharp
             // ScatterChart.Run();
             // BubbleChart.Run();
             // ChartWithFilteringGroupingOrdering.Run();
-            ConditionalBlocks.Run();
+            //ConditionalBlocks.Run();
 
             // Stop before exiting
             Console.WriteLine("\n\nProgram Finished. Press any key to exit....");
@@ -382,6 +404,11 @@ namespace Aspose.Words.Examples.CSharp
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Joining-Appending/");
         }
 
+        public static String GetDataDir_WorkingWithList()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Lists/");
+        }
+        
         public static String GetDataDir_FindAndReplace()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Find-Replace/");
@@ -404,6 +431,12 @@ namespace Aspose.Words.Examples.CSharp
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Document/");
         }
+
+        public static String GetDataDir_WorkingWithShapes()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Shapes/");
+        }
+        
         public static String GetDataDir_WorkingWithFields()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Fields/");
@@ -432,6 +465,11 @@ namespace Aspose.Words.Examples.CSharp
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Ranges/");
         }
+
+        public static String GetDataDir_WorkingWithStructuredDocumentTag()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/StructuredDocumentTag/");
+        }
         public static String GetDataDir_WorkingWithImages()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Images/");
@@ -445,6 +483,11 @@ namespace Aspose.Words.Examples.CSharp
         public static String GetDataDir_WorkingWithTables()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Tables/");
+        }
+
+        public static String GetDataDir_WorkingWithSignature()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Signature/");
         }
         public static String GetDataDir_WorkingWithSections()
         {

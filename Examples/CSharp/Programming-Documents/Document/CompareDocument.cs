@@ -13,7 +13,9 @@ namespace Aspose.Words.Examples.CSharp.Programming_Documents.Working_With_Docume
             string dataDir = RunExamples.GetDataDir_WorkingWithDocument();
             NormalComparison(dataDir);
             CompareForEqual(dataDir);
+            CompareDocumentWithComparisonTarget(dataDir);
         }             
+
         private static void NormalComparison(string dataDir)
         {
             // ExStart:NormalComparison
@@ -35,6 +37,43 @@ namespace Aspose.Words.Examples.CSharp.Programming_Documents.Working_With_Docume
             else
                 Console.WriteLine("Documents are not equal");
             // ExEnd:CompareForEqual                     
-        }  
+        }
+
+        private static void CompareDocumentWithCompareOptions(string dataDir)
+        {
+            // ExStart:CompareDocumentWithCompareOptions
+            Document docA = new Document(dataDir + "TestFile.doc");
+            Document docB = new Document(dataDir + "TestFile - Copy.doc");
+
+            CompareOptions options = new CompareOptions();
+            options.IgnoreFormatting = true;
+            options.IgnoreHeadersAndFooters = true;
+            // DocA now contains changes as revisions. 
+            docA.Compare(docB, "user", DateTime.Now, options);
+            if (docA.Revisions.Count == 0)
+                Console.WriteLine("Documents are equal");
+            else
+                Console.WriteLine("Documents are not equal");
+            // ExEnd:CompareDocumentWithCompareOptions                     
+        }
+
+        private static void CompareDocumentWithComparisonTarget(string dataDir)
+        {
+            // ExStart:CompareDocumentWithComparisonTarget
+            Document docA = new Document(dataDir + "TestFile.doc");
+            Document docB = new Document(dataDir + "TestFile - Copy.doc");
+
+            CompareOptions options = new CompareOptions();
+            options.IgnoreFormatting = true;
+            // Relates to Microsoft Word "Show changes in" option in "Compare Documents" dialog box. 
+            options.Target = ComparisonTargetType.New;
+
+            docA.Compare(docB, "user", DateTime.Now, options);
+            // ExEnd:CompareDocumentWithComparisonTarget      
+
+            dataDir = dataDir + "TestFile_Out.doc";
+
+            Console.WriteLine("\nDocuments have compared successfully.\nFile saved at " + dataDir);
+        }
     }
 }

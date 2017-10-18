@@ -21,7 +21,31 @@ namespace Aspose.Words.Examples.CSharp.Programming_Documents.Working_with_Tables
             ApplyRowFormatting(dataDir);
             ModifyCellFormatting(dataDir);
             FormatTableAndCellWithDifferentBorders(dataDir);
+            SetCellPadding(dataDir);
+
+            //Get DistanceLeft, DistanceRight, DistanceTop, and DistanceBottom properties
+            GetDistancebetweenTableSurroundingText(dataDir);
         }
+
+        /// <summary>
+        /// Shows how to apply outline border to a table.
+        /// </summary>
+        private static void GetDistancebetweenTableSurroundingText(string dataDir)
+        {
+            // ExStart:GetDistancebetweenTableSurroundingText
+            Document doc = new Document(dataDir + "Table.EmptyTable.doc");
+
+            Console.WriteLine("\nGet distance between table left, right, bottom, top and the surrounding text.");
+            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+
+            Console.WriteLine(table.DistanceTop);
+            Console.WriteLine(table.DistanceBottom);
+            Console.WriteLine(table.DistanceRight);
+            Console.WriteLine(table.DistanceLeft);
+
+            // ExEnd:GetDistancebetweenTableSurroundingText
+        }
+
         /// <summary>
         /// Shows how to apply outline border to a table.
         /// </summary>
@@ -122,6 +146,34 @@ namespace Aspose.Words.Examples.CSharp.Programming_Documents.Working_with_Tables
             // ExEnd:ApplyRowFormatting
             Console.WriteLine("\nRow formatting applied successfully.\nFile saved at " + dataDir);
         }
+
+        /// <summary>
+        /// Shows how to modify formatting of a table cell.
+        /// </summary>
+        private static void SetCellPadding(string dataDir)
+        {
+            // ExStart:SetCellPadding
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.StartTable();
+            builder.InsertCell();
+
+            //Sets the amount of space (in points) to add to the left/top/right/bottom of the contents of cell. 
+            builder.CellFormat.SetPaddings(30, 50, 30, 50);
+            builder.Writeln("I'm a wonderful formatted cell.");
+
+            builder.EndRow();
+            builder.EndTable();
+
+            dataDir = dataDir + "Table.SetCellPadding_out.doc";
+
+            // Save the document to disk.
+            doc.Save(dataDir);
+            // ExEnd:SetCellPadding
+            Console.WriteLine("\nCell padding is set successfully.");
+        }
+
         /// <summary>
         /// Shows how to modify formatting of a table cell.
         /// </summary>
