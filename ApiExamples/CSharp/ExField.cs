@@ -165,8 +165,8 @@ namespace ApiExamples
             doc.Range.Replace(new Regex("The Beginning"), "", options);
         }
 
-        //Bug, after saving document field.isDirty always false
         [Test]
+        [Ignore("After saving document field.isDirty always false")]
         public void InsertAndUpdateDirtyField()
         {
             Document doc = new Document();

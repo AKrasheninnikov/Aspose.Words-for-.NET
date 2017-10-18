@@ -99,7 +99,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        [Test]
+        [Test, Explicit]
         public void DefaultPaperTray()
         {
             //ExStart

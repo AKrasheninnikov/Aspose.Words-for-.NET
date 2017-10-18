@@ -165,7 +165,7 @@ namespace ApiExamples
             string outputDocFileName = MyDir + @"\Artifacts\Document.DigitalSignature.docx";
 
             // Digitally sign encrypted with "docPassword" document in the specified path.
-            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"), Throws.TypeOf<NullReferenceException>());
+            Assert.That(() => DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, null, "Comment", DateTime.Now, "docPassword"), Throws.TypeOf<ArgumentNullException>());
         }
     }
 }
