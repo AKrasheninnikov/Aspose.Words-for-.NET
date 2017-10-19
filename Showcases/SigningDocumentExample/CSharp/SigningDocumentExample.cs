@@ -81,7 +81,7 @@ namespace SigningDocumentExample
             //Firts you need to add specific info about signer person
             SignDocument.AddSignatureLineToDocument(builder, "Hocs", signerPosition, signerId);
 
-            //Let it be signed by the 'Deputy Head of Corporate Services'.
+            //Let it be signed by the 'Head of Corporate Services'.
             SignDocument.SignDocumentWithPersonCertificate(signerId, signerImage, pathToSignedDocument);
 
             //Get a signed document.

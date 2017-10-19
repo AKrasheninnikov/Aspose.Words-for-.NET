@@ -237,16 +237,18 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Field fieldTOC = builder.InsertTableOfContents("\\o \"1-3\" \\h \\z \\u");
-            fieldTOC.IsDirty = true;
+            Field fieldToc = builder.InsertTableOfContents("\\o \"1-3\" \\h \\z \\u");
+            fieldToc.IsDirty = true;
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            LoadOptions loadOptions = new LoadOptions();
-            loadOptions.UpdateDirtyFields = true;
+            Assert.IsTrue(doc.Range.Fields[0].IsDirty);
 
-            doc = new Document(dstStream, loadOptions);
+            LoadOptions loadOptions = new LoadOptions();
+            loadOptions.UpdateDirtyFields = false;
+
+            doc = new Document(dstStream);
             Field tocField = doc.Range.Fields[0];
 
             Assert.IsTrue(tocField.IsDirty);
