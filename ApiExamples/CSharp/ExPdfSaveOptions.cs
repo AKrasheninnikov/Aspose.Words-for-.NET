@@ -182,9 +182,9 @@ namespace ApiExamples
             PdfSaveOptions pdfSaveOptions = new PdfSaveOptions();
             pdfSaveOptions.DisplayDocTitle = true;
 
-            doc.Save(MyDir + "PdfTitle out.pdf", pdfSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\PdfTitle out.pdf", pdfSaveOptions);
 
-            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(MyDir + "PdfTitle out.pdf");
+            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(MyDir + @"\Artifacts\PdfTitle out.pdf");
 
             Assert.IsTrue(pdfDocument.DisplayDocTitle);
             Assert.AreEqual("Windows bar pdf title", pdfDocument.Info.Title);

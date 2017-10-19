@@ -46,6 +46,7 @@ namespace ApiExamples
 
             Assert.AreEqual(0, doc.GetChildNodes(NodeType.Shape, true).Count);
             Assert.AreEqual(0, doc.GetChildNodes(NodeType.GroupShape, true).Count);
+
             doc.Save(MyDir + @"\Artifacts\Shape.DeleteAllShapes.doc");
         }
 

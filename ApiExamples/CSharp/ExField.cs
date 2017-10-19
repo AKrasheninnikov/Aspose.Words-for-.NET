@@ -231,7 +231,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [Ignore("After saving document field.isDirty always false")]
+        [Ignore("After saving document field.isDirty always false. Need to add CR")]
         public void InsertAndUpdateDirtyField()
         {
             Document doc = new Document();
@@ -243,7 +243,7 @@ namespace ApiExamples
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            Assert.IsTrue(doc.Range.Fields[0].IsDirty);
+            Assert.IsTrue(doc.Range.Fields[0].IsDirty); //Assert that field model is correct
 
             LoadOptions loadOptions = new LoadOptions();
             loadOptions.UpdateDirtyFields = false;
@@ -251,7 +251,7 @@ namespace ApiExamples
             doc = new Document(dstStream);
             Field tocField = doc.Range.Fields[0];
 
-            Assert.IsTrue(tocField.IsDirty);
+            Assert.IsTrue(tocField.IsDirty); //Assert that isDirty saves 
         }
 
         public class InsertTcFieldHandler : IReplacingCallback

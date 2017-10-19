@@ -74,10 +74,12 @@ namespace ApiExamples
         [Test]
         public void ClearTextFromStructuredDocumentTags()
         {
+            //ExStart
+            //ExFor:StructuredDocumentTag.Clear
+            //ExSummary: Show how to delete content of StructuredDocumentTag elements
             Document doc = new Document(MyDir + "TestRepeatingSection.docx");
 
             NodeCollection sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
-
             Assert.IsNotNull(sdts);
 
             foreach (StructuredDocumentTag sdt in sdts)
@@ -90,8 +92,10 @@ namespace ApiExamples
 
             sdts = doc.GetChildNodes(NodeType.StructuredDocumentTag, true);
 
+            //Asserts that StructuredDocumentTag shows a placeholder instead of deleted content
             Assert.AreEqual("Enter any content that you want to repeat, including other content controls. You can also insert this control around table rows in order to repeat parts of a table.\r", sdts[0].GetText());
             Assert.AreEqual("Click here to enter text.\f", sdts[2].GetText());
+            //ExEnd
         }
     }
 }

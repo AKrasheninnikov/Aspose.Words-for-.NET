@@ -5,12 +5,15 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.IO;
 using Aspose.Words;
 using Aspose.Words.Drawing;
+using Aspose.Words.Lists;
 using Aspose.Words.Saving;
 using Aspose.Words.Settings;
 using NUnit.Framework;
+using List = Aspose.Words.Lists.List;
 
 namespace ApiExamples
 {
@@ -50,6 +53,74 @@ namespace ApiExamples
                 Assert.AreEqual(ShapeMarkupLanguage.Dml, shape.MarkupLanguage);
             }
             //ExEnd
+        }
+
+        [Test]
+        public void RestartingDocumentList()
+        {
+            //ExStart
+            //ExFor:List.IsRestartAtEachSection
+            //ExSummary: show how work with restarting list numbering
+            Document doc = new Document();
+
+            doc.Lists.Add(ListTemplate.NumberDefault);
+
+            List list = doc.Lists[0];
+
+            // Set true to specify that the list has to be restarted at each section.
+            list.IsRestartAtEachSection = true;
+
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.ListFormat.List = list;
+
+            for (int i = 1; i <= 45; i++)
+            {
+                builder.Write($"List Item {i}\n");
+
+                // Insert section break.
+                if (i == 15 || i == 30)
+                    builder.InsertBreak(BreakType.SectionBreakNewPage);
+            }
+
+            // IsRestartAtEachSection will be written only if compliance is higher then OoxmlComplianceCore.Ecma376
+            OoxmlSaveOptions options = new OoxmlSaveOptions();
+            options.Compliance = OoxmlCompliance.Iso29500_2008_Transitional;
+
+            doc.Save(MyDir + @"\Artifacts\RestartingDocumentList Out.docx", options);
+            //ExEnd
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UpdatingLastSavedTimeDocument(bool isLastSavedTime)
+        {
+            //ExStart
+            //ExFor:OoxmlSaveOptions.UpdateLastSavedTimeProperty
+            //ExSummary:Shows how to update a document time property when you want to save it
+            Document doc = new Document(MyDir + "Document.doc");
+
+            //Get last saved time
+            DateTime documentTimeBeforeSave = doc.BuiltInDocumentProperties.LastSavedTime;
+
+            OoxmlSaveOptions saveOptions = new OoxmlSaveOptions();
+            saveOptions.UpdateLastSavedTimeProperty = isLastSavedTime;
+            //ExEnd
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, saveOptions);
+
+            DateTime documentTimeAfterSave = doc.BuiltInDocumentProperties.LastSavedTime;
+
+            if (isLastSavedTime)
+            {
+                Assert.AreNotEqual(documentTimeBeforeSave, documentTimeAfterSave);
+            }
+            else
+            {
+                Assert.AreEqual(documentTimeBeforeSave, documentTimeAfterSave);
+            }
         }
     }
 }
