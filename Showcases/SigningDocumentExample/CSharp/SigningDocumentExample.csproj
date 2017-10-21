@@ -66,13 +66,9 @@
     <Compile Include="ConvertHepler.cs" />
     <Compile Include="SigningDocumentExample.cs" />
     <Compile Include="ApiExampleBase.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="RepositoryBase.cs" />
     <Compile Include="SignDocument.cs" />
-    <Compile Include="SignDocumentsRepository.cs" />
-    <Compile Include="SignDocuments.cs" />
-    <Compile Include="SignPerson.cs" />
-    <Compile Include="SignPersonsRepository.cs" />
+    <Compile Include="SignDocumentList.cs" />
+    <Compile Include="SignPersonList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
