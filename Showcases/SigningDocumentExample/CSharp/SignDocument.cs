@@ -6,7 +6,6 @@ namespace SigningDocumentExample
 {
     public class SignDocument : ApiExampleBase
     {
-
         public static void AddSignatureLineToDocument(DocumentBuilder builder, string signerPerson, string signerTitle, Guid signerId)
         {
             //Add some info about responsible person

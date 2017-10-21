@@ -22,6 +22,49 @@ namespace ApiExamples
     public class ExTable : ApiExampleBase
     {
         [Test]
+        public void Bug()
+        {
+            Document doc = new Document(MyDir + "Table.Document.doc");
+
+            // Retrieve the first table in the document.
+            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+            table.FirstRow.RowFormat.HeadingFormat = true;
+
+            for (int i = 1; i <= 4; i++)
+
+            {
+                // Clone the last row in the table.
+                Row clonedRow = (Row)table.Rows[1].Clone(true);
+
+                clonedRow.RowFormat.HeadingFormat = false;
+
+                // Remove all content from the cloned row's cells. This makes the row ready for
+                // new content to be inserted into.
+                int cellIndex = 0;
+
+                foreach (Cell cell in clonedRow.Cells)
+                {
+                    cell.FirstParagraph.Runs.Clear();
+
+                    cell.CellFormat.ClearFormatting();
+
+                    cell.FirstParagraph.AppendChild(new Run(doc, "hello text " + cellIndex));
+
+                    cell.CellFormat.Shading.BackgroundPatternColor = Color.Wheat;
+
+                    cellIndex++;
+                }
+                
+                // Add the row to the end of the table.
+                table.AppendChild(clonedRow);
+            }
+
+            table.Rows[1].Remove();
+
+            doc.Save(MyDir + "Table.Document Out.doc");
+        }
+
+        [Test]
         public void DisplayContentOfTables()
         {
             //ExStart
