@@ -8,6 +8,7 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Aspose.Words;
+using Aspose.Words.Drawing;
 using Aspose.Words.Saving;
 using NUnit.Framework;
 
@@ -62,6 +63,25 @@ namespace ApiExamples
             saveOptions.GraphicsQualityOptions = qualityOptions;
 
             doc.Save(MyDir + @"\Artifacts\SaveOptions.QualityOptions Out.jpeg", saveOptions);
+            //ExEnd
+        }
+
+        [Test]
+        [Ignore("Document is corrupt after saving. Asked SMerkulov")]
+        public void ConverImageColorsToBlackAndWhite()
+        {
+            //ExStart
+            //ExFor:ImageSaveOptions.ImageColorMode
+            //ExFor:ImageSaveOptions.PixelFormat
+            //ExSummary:Show how to convert document images to black and white with 1 bit per pixel
+            Document doc = new Document(MyDir + "ImageSaveOptions.BlackAndWhite.docx");
+
+            ImageSaveOptions imageSaveOptions = new ImageSaveOptions(SaveFormat.Png);
+            imageSaveOptions.PageIndex = 0;
+            imageSaveOptions.ImageColorMode = ImageColorMode.BlackAndWhite;
+            imageSaveOptions.PixelFormat = ImagePixelFormat.Format1bppIndexed;
+            
+            doc.Save(MyDir + "ImageSaveOptions.BlackAndWhite Out.docx", imageSaveOptions);
             //ExEnd
         }
     }

@@ -32,6 +32,7 @@ using Aspose.Words.Settings;
 using Aspose.Words.Tables;
 using Aspose.Words.Themes;
 using NUnit.Framework;
+using CompareOptions = Aspose.Words.CompareOptions;
 
 namespace ApiExamples
 {
@@ -1375,23 +1376,65 @@ namespace ApiExamples
         }
 
         [Test]
-        public void FootnoteOptionsEx()
+        [Ignore("Always get columns=0. Asked AZhiltsov")]
+        public void FootnoteOptions()
         {
             //ExStart
             //ExFor:Document.FootnoteOptions
-            //ExSummary:Shows how to insert a footnote and apply footnote options.
-            Document doc = new Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
+            //ExFor:FootnoteOptions.Position
+            //ExFor:FootnoteOptions.NumberStyle
+            //ExFor:FootnoteOptions.StartNumber
+            //ExFor:FootnoteOptions.RestartRule
+            //ExFor:FootnoteOptions.Columns
+            //ExSummary:Shows how to work with footnote options.
+            Document doc = new Document(MyDir + "Document.FootnoteEndnote.docx");
 
-            builder.InsertFootnote(FootnoteType.Footnote, "My Footnote.");
+            //Assert document footnote options
+            Assert.AreEqual(FootnotePosition.BottomOfPage, doc.FootnoteOptions.Position);
+            Assert.AreEqual(NumberStyle.Arabic, doc.FootnoteOptions.NumberStyle);
+            Assert.AreEqual(1, doc.FootnoteOptions.StartNumber);
+            Assert.AreEqual(FootnoteNumberingRule.Continuous, doc.FootnoteOptions.RestartRule);
+            Assert.AreEqual(0, doc.FootnoteOptions.Columns);
 
-            // Change your document's footnote options.
-            doc.FootnoteOptions.Location = FootnoteLocation.BottomOfPage;
-            doc.FootnoteOptions.NumberStyle = NumberStyle.Arabic;
-            doc.FootnoteOptions.StartNumber = 1;
+            //Lets change number of columns for footnotes on page. If columns value is 0 than footnotes area is formatted with a number of columns based on
+            //the number of columns on the displayed page
+            doc.FootnoteOptions.Columns = 2;
 
-            doc.Save(MyDir + @"\Artifacts\Document.FootnoteOptions.doc");
+            doc.Save(MyDir + "Document.FootnoteOptions Out.docx");
             //ExEnd
+
+            //Assert that number of columns gets correct
+            doc = new Document(MyDir + "Document.FootnoteOptions Out.docx");
+            Assert.AreEqual(2, doc.FootnoteOptions.Columns);
+        }
+
+        [Test]
+        public void EndnoteOptions()
+        {
+            //ExStart
+            //ExFor:Document.FootnoteOptions
+            //ExFor:FootnoteOptions.Position
+            //ExFor:FootnoteOptions.NumberStyle
+            //ExFor:FootnoteOptions.StartNumber
+            //ExFor:FootnoteOptions.RestartRule
+            //ExFor:FootnoteOptions.Columns
+            //ExSummary:Shows how to work with footnote options.
+            Document doc = new Document(MyDir + "Document.FootnoteEndnote.docx");
+
+            //Assert document footnote options
+            Assert.AreEqual(EndnotePosition.EndOfDocument, doc.EndnoteOptions.Position);
+            Assert.AreEqual(NumberStyle.LowercaseRoman, doc.EndnoteOptions.NumberStyle);
+            Assert.AreEqual(1, doc.EndnoteOptions.StartNumber);
+            Assert.AreEqual(FootnoteNumberingRule.Continuous, doc.EndnoteOptions.RestartRule);
+
+            //Lets change number of columns for footnotes on page. If columns value is 0 than footnotes area is formatted with a number of columns based on
+            //the number of columns on the displayed page
+            doc.EndnoteOptions.NumberStyle = NumberStyle.Arabic;
+
+            doc.Save(MyDir + @"\Artifacts\Document.EndnoteOptions Out.docx");
+            //ExEnd
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\Document.EndnoteOptions Out.docx", MyDir + @"\Golds\Document.EndnoteOptions Gold.docx"));
         }
 
         [Test]
@@ -1417,6 +1460,47 @@ namespace ApiExamples
             // doc1, when saved, now resembles doc2.
             doc1.Save(MyDir + @"\Artifacts\Document.CompareEx.doc");
             //ExEnd
+        }
+
+        [Test]
+        public void CompareDocumentsWithCompareOptions()
+        {
+            //ExStart
+            //ExFor:CompareOptions.IgnoreFormatting
+            //ExFor:CompareOptions.Target
+            //ExSummary: Shows how to specify which document shall be used as a target during comparison
+            Document doc1 = new Document(MyDir + "Document.CompareOptions.1.docx");
+            Document doc2 = new Document(MyDir + "Document.CompareOptions.2.docx");
+
+            //ComparisonTargetType with IgnoreFormatting setting determines which document has to be used as formatting source for ranges of equal text.
+            CompareOptions compareOptions = new CompareOptions();
+            compareOptions.IgnoreFormatting = true;
+            compareOptions.Target = ComparisonTargetType.New;
+
+            doc1.Compare(doc2, "vderyushev", DateTime.Now, compareOptions);
+
+            doc1.Save(MyDir + @"\Artifacts\Document.CompareOptions Out.docx");
+            //ExEnd
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\Document.CompareOptions Out.docx", MyDir + @"\Golds\Document.CompareOptions Gold.docx"));
+        }
+
+        [Test]
+        [Description("Result of this test is normal behavior MS Word. The bullet is missing for the 3rd list item")]
+        public void UseCurrentDocumentFormattingWhenCompareDocuments()
+        {
+            Document doc1 = new Document(MyDir + "Document.CompareOptions.1.docx");
+            Document doc2 = new Document(MyDir + "Document.CompareOptions.2.docx");
+
+            CompareOptions compareOptions = new CompareOptions();
+            compareOptions.IgnoreFormatting = true;
+            compareOptions.Target = ComparisonTargetType.Current;
+
+            doc1.Compare(doc2, "vderyushev", DateTime.Now, compareOptions);
+
+            doc1.Save(MyDir + @"\Artifacts\Document.UseCurrentDocumentFormatting Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\Document.UseCurrentDocumentFormatting Out.docx", MyDir + @"\Golds\Document.UseCurrentDocumentFormatting Gold.docx"));
         }
 
         [Test]
@@ -1567,8 +1651,7 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\HyphenationOptions Out.docx");
 
-            DocumentHelper.CompareDocs(MyDir + @"\Artifacts\HyphenationOptions Out.docx",
-                MyDir + @"\Golds\HyphenationOptions Gold.docx");
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\HyphenationOptions Out.docx", MyDir + @"\Golds\HyphenationOptions Gold.docx"));
         }
 
         [Test]

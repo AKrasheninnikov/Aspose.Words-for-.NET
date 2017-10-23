@@ -21,7 +21,7 @@ namespace ApiExamples
     /// <summary>
     /// Functions for operations with document and content
     /// </summary>
-    internal static class DocumentHelper
+    internal class DocumentHelper : ApiExampleBase
     {
         /// <summary>
         /// Create new document without run in the paragraph

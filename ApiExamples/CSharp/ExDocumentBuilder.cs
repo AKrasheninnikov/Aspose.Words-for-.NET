@@ -1594,6 +1594,35 @@ namespace ApiExamples
         }
 
         [Test]
+        public void CreateNewSignatureLineWithSpecificProvider()
+        {
+            //ExStart
+            //ExFor:SignatureLine.ProviderId
+            //ExFor:SignOptions.ProviderId
+            //ExSummary:Shows how to sign document with personal certificate and specific signatire line
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            SignatureLine signatureLine = builder.InsertSignatureLine(new SignatureLineOptions()).SignatureLine;
+            signatureLine.ProviderId = Guid.Parse("CF5A7BB4-8F3C-4756-9DF6-BEF7F13259A2");
+            signatureLine.Signer = "vderyushev";
+            signatureLine.SignerTitle = "QA";
+            signatureLine.ShowDate = true;
+
+            doc.Save(MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId In.docx");
+
+            SignOptions signOptions = new SignOptions();
+            signOptions.SignatureLineId = signatureLine.Id;
+            signOptions.ProviderId = signatureLine.ProviderId;
+
+            CertificateHolder certHolder = CertificateHolder.Create(MyDir + "morzal.pfx", "aw");
+            DigitalSignatureUtil.Sign(MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId In.docx", MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId Out.docx", certHolder, signOptions);
+            //ExEnd
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId Out.docx", MyDir + @"\Golds\DocumentBuilder.SignatureLineProviderId Gold.docx"));
+        }
+
+        [Test]
         public void InsertSignatureLineCurrentPozition()
         {
             //ExStart
@@ -1621,6 +1650,7 @@ namespace ApiExamples
             doc.Save(dstStream, SaveFormat.Docx);
 
             Shape shape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+
             SignatureLine signatureLine = shape.SignatureLine;
 
             Assert.AreEqual("John Doe", signatureLine.Signer);
@@ -1826,37 +1856,25 @@ namespace ApiExamples
             //ExSummary:Shows how to add a footnote to a paragraph in the document using DocumentBuilder.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
-            builder.Write("Some text");
 
-            builder.InsertFootnote(FootnoteType.Footnote, "Footnote text.");
-            builder.InsertFootnote(FootnoteType.Footnote, "Footnote text.", "242");
+            for (int i = 0; i <= 100; i++)
+            {
+                builder.Write("Some text " + i);
+
+                builder.InsertFootnote(FootnoteType.Footnote, "Footnote text " + i);
+                builder.InsertFootnote(FootnoteType.Footnote, "Footnote text " + i, "242");
+            }
             //ExEnd
 
-            Assert.AreEqual("Footnote text.", doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
-        }
+            Assert.AreEqual("Footnote text 0", doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
 
-        [Test]
-        public void AddFootnoteWithCustomMarks()
-        {
-            Document doc = new Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
+            doc.FootnoteOptions.NumberStyle = NumberStyle.Arabic;
+            doc.FootnoteOptions.StartNumber = 1;
+            doc.FootnoteOptions.RestartRule = FootnoteNumberingRule.RestartPage;
 
-            builder.Write("Some text");
+            doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertFootnote Out.docx");
 
-            Footnote foot = new Footnote(doc, FootnoteType.Footnote);
-            foot.ReferenceMark = "242";
-
-            builder.InsertFootnote(FootnoteType.Footnote, "Footnote text.", foot.ReferenceMark);
-
-            MemoryStream dstStream = new MemoryStream();
-            doc.Save(dstStream, SaveFormat.Docx);
-
-            doc = new Document(dstStream);
-            foot = (Footnote)doc.GetChildNodes(NodeType.Footnote, true)[0];
-
-            Assert.IsFalse(foot.IsAuto);
-            Assert.AreEqual("242", foot.ReferenceMark);
-            Assert.AreEqual("242 Footnote text.\r", foot.GetText());
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\DocumentBuilder.InsertFootnote Out.docx", MyDir + @"\Golds\DocumentBuilder.InsertFootnote Gold.docx"));
         }
 
         [Test]

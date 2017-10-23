@@ -521,7 +521,7 @@ namespace ApiExamples
                 }
             }
 
-            doc.Save(MyDir + "Field.UpdateTocPages Out.docx");
+            doc.Save(MyDir + @"\Artifacts\Field.UpdateTocPages Out.docx");
         }
 
         private void RemoveSequence(Node start, Node end)

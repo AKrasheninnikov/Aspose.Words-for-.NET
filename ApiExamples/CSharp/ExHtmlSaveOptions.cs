@@ -297,7 +297,7 @@ namespace ApiExamples
             saveOptions.ResourceFolder = MyDir + @"\Artifacts\Resources";
             saveOptions.ResourceFolderAlias = "http://example.com/resources";
 
-            doc.Save(MyDir + "HtmlSaveOptions.ResourceFolder Out.html", saveOptions);
+            doc.Save(MyDir + @"\Artifacts\HtmlSaveOptions.ResourceFolder Out.html", saveOptions);
 
             Assert.IsNotEmpty(Directory.GetFiles(MyDir + @"\Artifacts\Images", "HtmlSaveOptions.ResourceFolder Out.001.jpeg", SearchOption.AllDirectories));
             Assert.IsNotEmpty(Directory.GetFiles(MyDir + @"\Artifacts\Images", "HtmlSaveOptions.ResourceFolder Out.002.png", SearchOption.AllDirectories));

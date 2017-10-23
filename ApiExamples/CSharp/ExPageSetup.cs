@@ -377,5 +377,40 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\PageSetup.PageNumbering.doc");
             //ExEnd
         }
+
+        [Test]
+        public void FootnoteOptions()
+        {
+            //ExStart
+            //ExFor:PageSetup.FootnoteOptions
+            //ExSummary: Shows how to set footnote options for current section
+            Document doc = new Document();
+
+            PageSetup pageSetup = doc.Sections[0].PageSetup;
+
+            pageSetup.FootnoteOptions.Position = FootnotePosition.BottomOfPage;
+            pageSetup.FootnoteOptions.NumberStyle = NumberStyle.Bullet;
+            pageSetup.FootnoteOptions.StartNumber = 1;
+            pageSetup.FootnoteOptions.RestartRule = FootnoteNumberingRule.RestartPage;
+            pageSetup.FootnoteOptions.Columns = 0;
+            //ExEnd
+        }
+
+        [Test]
+        public void EndnoteOptions()
+        {
+            //ExStart
+            //ExFor:PageSetup.EndnoteOptions
+            //ExSummary: Shows how to set endnote options for current section
+            Document doc = new Document();
+
+            PageSetup pageSetup = doc.Sections[0].PageSetup;
+
+            pageSetup.EndnoteOptions.Position = EndnotePosition.EndOfSection;
+            pageSetup.EndnoteOptions.NumberStyle = NumberStyle.Bullet;
+            pageSetup.EndnoteOptions.StartNumber = 1;
+            pageSetup.EndnoteOptions.RestartRule = FootnoteNumberingRule.RestartPage;
+            //ExEnd
+        }
     }
 }
