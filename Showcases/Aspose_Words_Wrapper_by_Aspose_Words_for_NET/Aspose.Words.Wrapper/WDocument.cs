@@ -56,6 +56,11 @@ namespace Aspose.Words.Wrapper
             return Sections[sectionNumber];
         }
 
+        public Node GetChildNode(NodeType nodeType)
+        {
+            return Document.GetChild(nodeType, 0, true);
+        }
+
         /// <summary>
         /// Instantiate wrapper object (WParagrpah, WRun etc) or ordinary object (Paragraph, Run etc).
         /// </summary>

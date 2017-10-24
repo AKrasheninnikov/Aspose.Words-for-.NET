@@ -13,7 +13,7 @@ namespace Aspose.Words.Wrapper
 
             ConstructorInfo constructor = type.GetConstructor(new Type[0]);
             if (constructor == null)
-                throw new Exception(string.Format("Invalid type '{0}'", className));
+                throw new Exception(string.Format("Invalid constructor '{0}'", className));
 
             return constructor.Invoke(new object[0]);
         }

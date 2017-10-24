@@ -12,7 +12,7 @@ Sub TestWrapper2
 
     Set Run2 = WDoc.CreateNode("Run")
     Run2.Text = " from "
-
+    
     WPar1.AppendChild(Run1)
     WPar1.AppendFieldByCode("PAGE") ' this is user-defined method
     WPar1.AppendChild(Run2)
