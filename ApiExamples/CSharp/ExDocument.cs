@@ -1405,7 +1405,7 @@ namespace ApiExamples
 
             //Assert that number of columns gets correct
             doc = new Document(MyDir + "Document.FootnoteOptions Out.docx");
-            Assert.AreEqual(2, doc.FootnoteOptions.Columns);
+            Assert.AreEqual(2, doc.FirstSection.PageSetup.FootnoteOptions.Columns);
         }
 
         [Test]

@@ -1187,5 +1187,11 @@ namespace ApiExamples
             Assert.AreEqual(2, table.Rows.Count);
             Assert.AreEqual(2, doc.GetChildNodes(NodeType.Table, true).Count);
         }
+
+        [Test]
+        public void RelativeAlignment()
+        {
+            
+        }
     }
 }
