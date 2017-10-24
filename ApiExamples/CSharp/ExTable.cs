@@ -1191,7 +1191,24 @@ namespace ApiExamples
         [Test]
         public void RelativeAlignment()
         {
-            
+            //ExStart
+            //ExFor:Table.RelativeHorizontalAlignment
+            //ExFor:Table.RelativeVerticalAlignment
+            //ExSummary: Shows how get relative alignments for table
+            Document doc = new Document(MyDir + "Table.Distance.docx");
+
+            Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
+
+            if (table.TextWrapping == TextWrapping.Around)
+            {
+                Assert.AreEqual(HorizontalAlignment.Default, table.RelativeHorizontalAlignment);
+                Assert.AreEqual(VerticalAlignment.Default, table.RelativeVerticalAlignment);
+            }
+            else
+            {
+                Assert.Fail("Alignment is incorrect.");
+            }
+            //ExEnd
         }
     }
 }
