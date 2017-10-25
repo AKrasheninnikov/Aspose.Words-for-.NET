@@ -67,7 +67,6 @@ namespace ApiExamples
         }
 
         [Test]
-        [Ignore("Document is corrupt after saving. Asked SMerkulov")]
         public void ConverImageColorsToBlackAndWhite()
         {
             //ExStart
@@ -77,11 +76,10 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "ImageSaveOptions.BlackAndWhite.docx");
 
             ImageSaveOptions imageSaveOptions = new ImageSaveOptions(SaveFormat.Png);
-            imageSaveOptions.PageIndex = 0;
             imageSaveOptions.ImageColorMode = ImageColorMode.BlackAndWhite;
             imageSaveOptions.PixelFormat = ImagePixelFormat.Format1bppIndexed;
             
-            doc.Save(MyDir + "ImageSaveOptions.BlackAndWhite Out.docx", imageSaveOptions);
+            doc.Save(MyDir + @"\Artifacts\ImageSaveOptions.BlackAndWhite Out.png", imageSaveOptions);
             //ExEnd
         }
     }

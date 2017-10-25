@@ -7,6 +7,7 @@
 
 using System.Text;
 using System;
+using System.IO;
 using Aspose.Words;
 using Aspose.Words.Saving;
 using NUnit.Framework;
@@ -172,12 +173,42 @@ namespace ApiExamples
         [Test]
         public void UsingMachineFonts()
         {
-            Document doc = new Document(MyDir + "Bookmark.doc");
+            //ExStart
+            //ExFor:HtmlFixedSaveOptions.UseTargetMachineFonts
+            //ExSummary: Shows how used target machine fonts to display the document
+            Document doc = new Document(MyDir + "Font.DisapearingBulletPoints.doc");
 
             HtmlFixedSaveOptions saveOptions = new HtmlFixedSaveOptions();
             saveOptions.UseTargetMachineFonts = true;
+            saveOptions.FontFormat = ExportFontFormat.Ttf;
+            saveOptions.ExportEmbeddedFonts = false;
+            saveOptions.ResourceSavingCallback = new ResourceSavingCallback();
 
             doc.Save(MyDir + @"\Artifacts\UseMachineFonts Out.html", saveOptions);
         }
+
+        private class ResourceSavingCallback : IResourceSavingCallback
+        {
+            /// <summary>
+            /// Called when Aspose.Words saves an external resource to fixed page HTML or SVG.
+            /// </summary>
+            public void ResourceSaving(ResourceSavingArgs args)
+            {
+                args.ResourceStream = new MemoryStream();
+                args.KeepResourceStreamOpen = true;
+
+                string extension = Path.GetExtension(args.ResourceFileName);
+                switch (extension)
+                {
+                    case ".ttf":
+                    case ".woff":
+                    {
+                        Assert.Fail("'ResourceSavingCallback' is not fired for fonts when 'UseTargetMachineFonts' is true");
+                        break;
+                    }
+                }
+            }
+        }
+        //ExEnd
     }
 }
