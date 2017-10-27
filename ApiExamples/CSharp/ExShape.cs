@@ -270,6 +270,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:OleFormat.SuggestedFileName
+            //ExFor:OleFormat.NeedEmbeddedPart
             //ExSummary:Shows how to get suggested file name from the object
             Document doc = new Document(MyDir + "Shape.SuggestedFileName.rtf");
 
@@ -279,6 +280,7 @@ namespace ApiExamples
             //ExEnd
 
             Assert.AreEqual("CSV.csv", suggestedFileName);
+            Assert.IsTrue(oleShape.OleFormat.NeedEmbeddedPart);
         }
 
         [Test]
@@ -505,8 +507,13 @@ namespace ApiExamples
         }
 
         [Test]
+        [TestCase(MsWordVersion.Word2000, ShapeMarkupLanguage.Vml)]
+        [TestCase(MsWordVersion.Word2002, ShapeMarkupLanguage.Vml)]
         [TestCase(MsWordVersion.Word2003, ShapeMarkupLanguage.Vml)]
+        [TestCase(MsWordVersion.Word2007, ShapeMarkupLanguage.Vml)]
         [TestCase(MsWordVersion.Word2010, ShapeMarkupLanguage.Dml)]
+        [TestCase(MsWordVersion.Word2013, ShapeMarkupLanguage.Dml)]
+        [TestCase(MsWordVersion.Word2016, ShapeMarkupLanguage.Dml)]
         public void MarkupLunguageForDifferentMsWordVersions(MsWordVersion msWordVersion, ShapeMarkupLanguage shapeMarkupLanguage)
         {
             Document doc = new Document();

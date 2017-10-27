@@ -133,13 +133,13 @@
     <Compile Include="TestData\Colors.cs" />
     <Compile Include="TestData\NumericDataSourceWithMethod.cs" />
     <Compile Include="TestData\DocumentDataSource.cs" />
-    <Compile Include="TestData\DataTables.cs">
-      <DependentUpon>DataTables.xsd</DependentUpon>
+    <Compile Include="TestData\TestTables.cs">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </Compile>
-    <Compile Include="TestData\DataTables.Designer.cs">
+    <Compile Include="TestData\TestTables.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataTables.xsd</DependentUpon>
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </Compile>
     <Compile Include="TestData\NumericDataSource.cs" />
     <Compile Include="TestData\ImageDataSource.cs" />
@@ -153,16 +153,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\DataTables.xsc">
-      <DependentUpon>DataTables.xsd</DependentUpon>
+    <None Include="TestData\TestTables.xsc">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </None>
-    <None Include="TestData\DataTables.xsd">
+    <None Include="TestData\TestTables.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataTables.Designer.cs</LastGenOutput>
+      <LastGenOutput>TestTables.Designer.cs</LastGenOutput>
     </None>
-    <None Include="TestData\DataTables.xss">
-      <DependentUpon>DataTables.xsd</DependentUpon>
+    <None Include="TestData\TestTables.xss">
+      <DependentUpon>TestTables.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

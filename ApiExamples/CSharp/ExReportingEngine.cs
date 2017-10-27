@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using ApiExamples.TestData;
 using Aspose.Words;
 using Aspose.Words.Drawing;
@@ -72,7 +71,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestDataTable.docx");
 
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx");
@@ -85,7 +84,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "ReportingEngine.Total.docx");
 
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.Total Out.docx");
@@ -98,7 +97,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestNestedDataTable.docx");
 
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
             BuildReport(doc, ds, "ds");
 
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestNestedDataTable Out.docx");
@@ -110,7 +109,7 @@ namespace ApiExamples
         public void ChartTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestChart.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds.Managers, "managers");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestChart Out.docx");
@@ -122,7 +121,7 @@ namespace ApiExamples
         public void BubbleChartTest()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestBubbleChart.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds.Managers, "managers");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestBubbleChart Out.docx");
@@ -131,10 +130,40 @@ namespace ApiExamples
         }
 
         [Test]
+        public void ConditionalExpressionForLeaveChartSeries()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.TestRemoveChartSeries.docx");
+
+            DataSet ds = DataSet.AddTestData();
+
+            int condition = 3;
+
+            BuildReport(doc, new object[] { ds.Managers, condition }, new[] { "managers", "condition" });
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestLeaveChartSeries Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestLeaveChartSeries Out.docx", MyDir + @"\Golds\ReportingEngine.TestLeaveChartSeries Gold.docx"));
+        }
+
+        [Test]
+        public void ConditionalExpressionForRemoveChartSeries()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.TestRemoveChartSeries.docx");
+
+            DataSet ds = DataSet.AddTestData();
+
+            int condition = 2;
+            
+            BuildReport(doc, new object[] { ds.Managers, condition }, new[] { "managers", "condition" });
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestRemoveChartSeries Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestRemoveChartSeries Out.docx", MyDir + @"\Golds\ReportingEngine.TestRemoveChartSeries Gold.docx"));
+        }
+
+        [Test]
         public void IndexOf()
         {
             Document doc = new Document(MyDir + "ReportingEngine.TestIndexOf.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds, "ds");
 
@@ -148,7 +177,7 @@ namespace ApiExamples
         public void IfElse()
         {
             Document doc = new Document(MyDir + "ReportingEngine.IfElse.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds.Managers, "m");
 
@@ -176,7 +205,7 @@ namespace ApiExamples
         public void ExtensionMethods()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ExtensionMethods.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds, "ds");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.ExtensionMethods Out.docx");
@@ -203,7 +232,7 @@ namespace ApiExamples
         public void ContextualObjectMemberAccess()
         {
             Document doc = new Document(MyDir + "ReportingEngine.ContextualObjectMemberAccess.docx");
-            DataSet ds = DataTables.AddClientsTestData();
+            DataSet ds = DataSet.AddTestData();
 
             BuildReport(doc, ds, "ds");
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.ContextualObjectMemberAccess Out.docx");
