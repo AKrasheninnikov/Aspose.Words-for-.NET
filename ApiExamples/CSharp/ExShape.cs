@@ -270,7 +270,6 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:OleFormat.SuggestedFileName
-            //ExFor:OleFormat.NeedEmbeddedPart
             //ExSummary:Shows how to get suggested file name from the object
             Document doc = new Document(MyDir + "Shape.SuggestedFileName.rtf");
 
@@ -280,7 +279,6 @@ namespace ApiExamples
             //ExEnd
 
             Assert.AreEqual("CSV.csv", suggestedFileName);
-            Assert.IsTrue(oleShape.OleFormat.NeedEmbeddedPart);
         }
 
         [Test]
@@ -570,6 +568,67 @@ namespace ApiExamples
             Assert.AreEqual(JoinStyle.Miter, strokeAfter.JoinStyle);
             Assert.AreEqual(EndCap.Square, strokeAfter.EndCap);
             Assert.AreEqual(ShapeLineStyle.Triple, strokeAfter.LineStyle);
+        }
+
+        [Test]
+        [Ignore("WORDSNET-16067")]
+        public void InsertOleObjectAsHtmlFile()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, false, null);
+            
+            doc.Save(MyDir + @"\Artifacts\Document.InsertedOleObject.docx");
+        }
+
+        [Test]
+        [Ignore("Object filename in word always 'Unknown'. Ask developer.")]
+        public void InsertOlePackage()
+        {
+            //ExStart
+            //ExFor:OlePackage
+            //ExFor:OleFormat.OlePackage
+            //ExFor:OlePackage.FileName
+            //ExFor:OlePackage.DisplayName
+            //ExSummary:Shows how insert ole object as ole package and set it file name and display name
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            byte[] zipFileBytes = File.ReadAllBytes(MyDir + @"\Database\cat001.zip");
+
+            using (Stream stream = new MemoryStream(zipFileBytes))
+            {
+                Shape shape = builder.InsertOleObject(stream, "Package", true, null);
+
+                OlePackage setOlePackage = shape.OleFormat.OlePackage;
+                setOlePackage.FileName = "Cat FileName.zip";
+                setOlePackage.DisplayName = "Cat DisplayName.zip";
+                
+                doc.Save(MyDir + @"Shape.InsertOlePackage.docx");
+            }
+            //ExEnd
+
+            doc = new Document(MyDir + @"Shape.InsertOlePackage.docx");
+
+            Shape getShape = (Shape)doc.GetChild(NodeType.Shape, 0, true);
+            OlePackage getOlePackage = getShape.OleFormat.OlePackage;
+
+            Assert.AreEqual("Cat FileName.zip", getOlePackage.FileName);
+            Assert.AreEqual("Cat DisplayName.zip", getOlePackage.DisplayName);
+        }
+
+        [Test]
+        public void GetAccessToOlePackage()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, null);
+            Shape oleObjectAsOlePackage = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", "Excel.Sheet", false, false, null);
+
+            Assert.AreEqual(null, oleObject.OleFormat.OlePackage);
+            Assert.AreEqual(typeof(OlePackage), oleObjectAsOlePackage.OleFormat.OlePackage.GetType());
         }
     }
 }

@@ -1594,11 +1594,12 @@ namespace ApiExamples
         }
 
         [Test]
-        public void CreateNewSignatureLineWithSpecificProvider()
+        public void CreateAndSignSignatureLineUsingSpecialIds()
         {
             //ExStart
             //ExFor:SignatureLine.ProviderId
             //ExFor:SignOptions.ProviderId
+            //ExFor:SignOptions.SignatureLineId
             //ExSummary:Shows how to sign document with personal certificate and specific signatire line
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
@@ -1616,6 +1617,7 @@ namespace ApiExamples
             signOptions.ProviderId = signatureLine.ProviderId;
 
             CertificateHolder certHolder = CertificateHolder.Create(MyDir + "morzal.pfx", "aw");
+
             DigitalSignatureUtil.Sign(MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId In.docx", MyDir + @"\Artifacts\DocumentBuilder.SignatureLineProviderId Out.docx", certHolder, signOptions);
             //ExEnd
 
@@ -1972,7 +1974,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertOleObjectEx()
+        public void InsertOleObject()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertOleObject(String, Boolean, Boolean, Image)
@@ -1983,16 +1985,11 @@ namespace ApiExamples
 
             Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
 
-            //Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
-            Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, representingImage);
-
-            // Double click on the image in the .doc to see the spreadsheet.
-            // Double click on the icon in the .doc to see the html.
-            doc.Save(MyDir + "Document.InsertedOleObject.doc");
+            Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
+            Shape oleObjectWithProgId = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", "Excel.Sheet", false, false, representingImage);
+            
+            doc.Save(MyDir + @"\Artifacts\Document.InsertedOleObject.docx");
             //ExEnd
-
-            //ToDo: There is some bug, need more info for this (breaking html link)
-            //Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, false, null);
         }
 
         [Test]
@@ -2005,7 +2002,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertChartDoubleEx()
+        public void InsertChartDouble()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertChart(ChartType, Double, Double)

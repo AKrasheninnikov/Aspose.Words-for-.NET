@@ -889,13 +889,17 @@ namespace ApiExamples
         [Test]
         public void SignDocument()
         {
-            CertificateHolder ch = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
+            CertificateHolder certificateHolder = CertificateHolder.Create(MyDir + "certificate.pfx", "123456");
 
             //By String
             Document doc = new Document(MyDir + "TestRepeatingSection.docx");
             string outputDocFileName = MyDir + @"\Artifacts\TestRepeatingSection.Signed.doc";
 
-            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, ch, "My comment", DateTime.Now);
+            SignOptions signOptions = new SignOptions();
+            signOptions.Comments = "My comment";
+            signOptions.SignTime = DateTime.Now;
+
+            DigitalSignatureUtil.Sign(doc.OriginalFileName, outputDocFileName, certificateHolder, signOptions);
         }
 
         [Test]
@@ -1376,7 +1380,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [Ignore("Always get columns=0. Asked AZhiltsov")]
+        [Ignore("WORDSNET-16037")]
         public void FootnoteOptions()
         {
             //ExStart
@@ -1400,11 +1404,11 @@ namespace ApiExamples
             //the number of columns on the displayed page
             doc.FootnoteOptions.Columns = 2;
 
-            doc.Save(MyDir + "Document.FootnoteOptions Out.docx");
+            doc.Save(MyDir + @"\Artifacts\Document.FootnoteOptions Out.docx");
             //ExEnd
 
             //Assert that number of columns gets correct
-            doc = new Document(MyDir + "Document.FootnoteOptions Out.docx");
+            doc = new Document(MyDir + @"\Artifacts\Document.FootnoteOptions Out.docx");
             Assert.AreEqual(2, doc.FirstSection.PageSetup.FootnoteOptions.Columns);
         }
 

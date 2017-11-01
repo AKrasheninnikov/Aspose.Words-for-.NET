@@ -34,7 +34,7 @@ namespace ApiExamples
             
             PclSaveOptions saveOptions = new PclSaveOptions();
             saveOptions.AddPrinterFont("Courier", "Courier");
-            saveOptions.FalllbackFontName = "Times New Roman";
+            saveOptions.FallbackFontName = "Times New Roman";
 
             doc.Save(MyDir + @"\Artifacts\Document.EpubConversion.pcl", saveOptions);
         }
