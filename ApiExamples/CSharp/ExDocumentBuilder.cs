@@ -481,7 +481,7 @@ namespace ApiExamples
             FindReplaceOptions options = new FindReplaceOptions();
             options.MatchCase = false;
             options.FindWholeWordsOnly = true;
-
+            
             // Move to a particular paragraph's run and replace all occurrences of "bad" with "good" within this run.
             builder.MoveTo(doc.LastSection.Body.Paragraphs[0].Runs[0]);
             builder.CurrentNode.Range.Replace("bad", "good", options);

@@ -41,8 +41,7 @@
       <HintPath>packages\Aspose.Pdf.17.10\lib\net40-client\Aspose.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Words, Version=17.10.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\awnet\Aspose.Words\bin\net2.0\Aspose.Words.dll</HintPath>
+      <HintPath>packages\Aspose.Words.17.10\lib\net40\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>

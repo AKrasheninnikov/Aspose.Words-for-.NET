@@ -1189,12 +1189,37 @@ namespace ApiExamples
         }
 
         [Test]
-        public void RelativeAlignment()
+        public void CheckDefaultValuesForFloatingTableProperties()
+        {
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            Table table = DocumentHelper.InsertTable(builder);
+
+            if (table.TextWrapping == TextWrapping.Around)
+            {
+                Assert.AreEqual(HorizontalAlignment.Default, table.RelativeHorizontalAlignment);
+                Assert.AreEqual(VerticalAlignment.Default, table.RelativeVerticalAlignment);
+                Assert.AreEqual(RelativeHorizontalPosition.Column, table.HorizontalAnchor);
+                Assert.AreEqual(RelativeVerticalPosition.Margin, table.VerticalAnchor);
+                Assert.AreEqual(0, table.AbsoluteHorizontalDistance);
+                Assert.AreEqual(0, table.AbsoluteVerticalDistance);
+                Assert.AreEqual(true, table.AllowOverlap);
+            }
+        }
+
+        [Test]
+        public void FloatingTableProperties()
         {
             //ExStart
             //ExFor:Table.RelativeHorizontalAlignment
             //ExFor:Table.RelativeVerticalAlignment
-            //ExSummary: Shows how get relative alignments for table
+            //ExFor:Table.HorizontalAnchor
+            //ExFor:Table.VerticalAnchor
+            //ExFor:Table.AbsoluteHorizontalDistance
+            //ExFor:Table.AbsoluteVerticalDistance
+            //ExFor:Table.AllowOverlap
+            //ExSummary:Shows how get properties for floating tables
             Document doc = new Document(MyDir + "Table.Distance.docx");
 
             Table table = (Table)doc.GetChild(NodeType.Table, 0, true);
@@ -1203,10 +1228,11 @@ namespace ApiExamples
             {
                 Assert.AreEqual(HorizontalAlignment.Default, table.RelativeHorizontalAlignment);
                 Assert.AreEqual(VerticalAlignment.Default, table.RelativeVerticalAlignment);
-            }
-            else
-            {
-                Assert.Fail("Alignment is incorrect.");
+                Assert.AreEqual(RelativeHorizontalPosition.Margin, table.HorizontalAnchor);
+                Assert.AreEqual(RelativeVerticalPosition.Paragraph, table.VerticalAnchor);
+                Assert.AreEqual(0, table.AbsoluteHorizontalDistance);
+                Assert.AreEqual(4.8, table.AbsoluteVerticalDistance);
+                Assert.AreEqual(true, table.AllowOverlap);
             }
             //ExEnd
         }

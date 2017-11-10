@@ -5,6 +5,7 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+using System;
 using Aspose.Words;
 using Aspose.Words.Saving;
 using Aspose.Pdf.Facades;
@@ -178,7 +179,7 @@ namespace ApiExamples
         {
             Document doc = new Document(MyDir + "Rendering.doc");
             doc.BuiltInDocumentProperties.Title = "Windows bar pdf title";
-            
+
             PdfSaveOptions pdfSaveOptions = new PdfSaveOptions();
             pdfSaveOptions.DisplayDocTitle = true;
 
@@ -188,7 +189,9 @@ namespace ApiExamples
 
             Assert.IsTrue(pdfDocument.DisplayDocTitle);
             Assert.AreEqual("Windows bar pdf title", pdfDocument.Info.Title);
-}
+        }
+
+        [Test]
         public void MemoryOptimization()
         {
             //ExStart
@@ -202,5 +205,53 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\SaveOptions.MemoryOptimization Out.pdf", saveOptions);
             //ExEnd
         }
+
+        [Test]
+        public void HandleBinaryRasterWarnings()
+        {
+            //ExStart
+            //ExFor:MetafileRenderingMode.VectorWithFallback
+            //ExFor:IWarningCallback
+            //ExFor:PdfSaveOptions.MetafileRenderingOptions
+            //ExSummary:Shows added fallback to bitmap rendering and changing type of warnings about unsupported metafile records
+            Document doc = new Document(MyDir + "PdfSaveOptions.HandleRasterWarnings.doc");
+
+            MetafileRenderingOptions metafileRenderingOptions = new MetafileRenderingOptions();
+            metafileRenderingOptions.EmulateRasterOperations = false;
+
+            //If Aspose.Words cannot correctly render some of the metafile records to vector graphics then Aspose.Words renders this metafile to a bitmap. 
+            metafileRenderingOptions.RenderingMode = MetafileRenderingMode.VectorWithFallback;
+
+            HandleDocumentWarnings callback = new HandleDocumentWarnings();
+            doc.WarningCallback = callback;
+
+            PdfSaveOptions saveOptions = new PdfSaveOptions();
+            saveOptions.MetafileRenderingOptions = metafileRenderingOptions;
+            
+            doc.Save(MyDir + "PdfSaveOptions.HandleRasterWarnings Out.pdf", saveOptions);
+
+            Assert.AreEqual(2, callback.mWarnings.Count);
+            Assert.True(callback.mWarnings[0].Description.Contains("R2_XORPEN"));
+        }
+
+        public class HandleDocumentWarnings : IWarningCallback
+        {
+            /// <summary>
+            /// Our callback only needs to implement the "Warning" method. This method is called whenever there is a
+            /// potential issue during document procssing. The callback can be set to listen for warnings generated during document
+            /// load and/or document save.
+            /// </summary>
+            public void Warning(WarningInfo info)
+            {
+                //For now type of warnings about unsupported metafile records changed from DataLoss/UnexpectedContent to MinorFormattingLoss.
+                if (info.WarningType == WarningType.MinorFormattingLoss)
+                {
+                    Console.WriteLine("Unsupported operation: " + info.Description);
+                    this.mWarnings.Warning(info);
+                }
+            }
+
+            public WarningInfoCollection mWarnings = new WarningInfoCollection();
+        }//ExEnd
     }
 }

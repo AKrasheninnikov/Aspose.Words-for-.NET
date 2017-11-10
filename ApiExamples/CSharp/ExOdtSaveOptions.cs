@@ -5,11 +5,7 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-using System.IO;
-using System.Text;
 using Aspose.Words;
-using Aspose.Words.Fields;
-using Aspose.Words.Markup;
 using Aspose.Words.Saving;
 using NUnit.Framework;
 

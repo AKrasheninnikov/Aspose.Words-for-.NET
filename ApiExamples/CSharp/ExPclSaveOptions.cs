@@ -7,8 +7,6 @@
 
 using Aspose.Words;
 using Aspose.Words.Saving;
-using Aspose.Pdf.Facades;
-using Aspose.Pdf.Text;
 using NUnit.Framework;
 
 namespace ApiExamples
@@ -19,17 +17,27 @@ namespace ApiExamples
         [Test]
         public void RasterizeElements()
         {
+            //ExStart
+            //ExFor: PclSaveOptions.RasterizeTransformedElements
+            //ExFor: SaveFormat.Pcl
+            //ExSummary:Shows how rasterized or not transformed elements before saving
             Document doc = new Document(MyDir + "Document.EpubConversion.doc");
 
             PclSaveOptions saveOptions = new PclSaveOptions();
+            saveOptions.SaveFormat = SaveFormat.Pcl;
             saveOptions.RasterizeTransformedElements = true;
 
             doc.Save(MyDir + @"\Artifacts\Document.EpubConversion.pcl", saveOptions);
+            //ExEnd
         }
 
         [Test]
         public void SetPrinterFont()
         {
+            //ExStart
+            //ExFor:PclSaveOptions.AddPrinterFont(string, string)
+            //ExFor:PclSaveOptions.FallbackFontName
+            //ExSummary:Shows how to add information about font that is uploaded to the printer and set the font that will be used if no expected font is found in printer and built-in fonts collections.
             Document doc = new Document(MyDir + "Document.EpubConversion.doc");
             
             PclSaveOptions saveOptions = new PclSaveOptions();
@@ -37,6 +45,7 @@ namespace ApiExamples
             saveOptions.FallbackFontName = "Times New Roman";
 
             doc.Save(MyDir + @"\Artifacts\Document.EpubConversion.pcl", saveOptions);
+            //ExEnd
         }
     }
 }

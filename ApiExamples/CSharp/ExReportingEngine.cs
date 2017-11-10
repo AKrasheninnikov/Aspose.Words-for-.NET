@@ -14,7 +14,6 @@ using Aspose.Words;
 using Aspose.Words.Drawing;
 using Aspose.Words.Reporting;
 using NUnit.Framework;
-using DataSet = ApiExamples.TestData.DataSet;
 
 namespace ApiExamples
 {
@@ -507,12 +506,12 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "ReportingEngine.BackColor.docx");
 
             List<Colors> colors = new List<Colors>();
-            colors.Add(new Colors { Color = Color.Black, ColorName = "Black", Description = "Black color" });
-            colors.Add(new Colors { Color = Color.FromArgb(255, 0, 0), ColorName = "Red", Description = "Red color" });
-            colors.Add(new Colors { Color = Color.Empty, ColorName = "Empty", Description = "Empty color" });
+            colors.Add(new Colors { ColorCode = Color.Black, ColorName = "Black", Description = "Black color" });
+            colors.Add(new Colors { ColorCode = Color.FromArgb(255, 0, 0), ColorName = "Red", Description = "Red color" });
+            colors.Add(new Colors { ColorCode = Color.Empty, ColorName = "Empty", Description = "Empty color" });
 
-            BuildReport(doc, colors, "colors");
-
+            BuildReport(doc, colors, "Colors");
+            
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.BackColor Out.docx");
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.BackColor Out.docx", MyDir + @"\Golds\ReportingEngine.BackColor Gold.docx"));

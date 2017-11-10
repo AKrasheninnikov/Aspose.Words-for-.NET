@@ -10,7 +10,6 @@ using System.Drawing;
 using System.IO;
 using Aspose.Words;
 using Aspose.Words.Drawing;
-using Aspose.Words.Drawing.Charts;
 using Aspose.Words.Drawing.Ole;
 using Aspose.Words.Math;
 using Aspose.Words.Rendering;
@@ -583,7 +582,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [Ignore("Object filename in word always 'Unknown'. Ask developer.")]
+        [Ignore("WORDSNET-16085")]
         public void InsertOlePackage()
         {
             //ExStart

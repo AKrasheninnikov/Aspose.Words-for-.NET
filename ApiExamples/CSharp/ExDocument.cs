@@ -32,7 +32,6 @@ using Aspose.Words.Settings;
 using Aspose.Words.Tables;
 using Aspose.Words.Themes;
 using NUnit.Framework;
-using CompareOptions = Aspose.Words.CompareOptions;
 
 namespace ApiExamples
 {
@@ -1477,7 +1476,7 @@ namespace ApiExamples
             Document doc2 = new Document(MyDir + "Document.CompareOptions.2.docx");
 
             //ComparisonTargetType with IgnoreFormatting setting determines which document has to be used as formatting source for ranges of equal text.
-            CompareOptions compareOptions = new CompareOptions();
+            Aspose.Words.CompareOptions compareOptions = new Aspose.Words.CompareOptions();
             compareOptions.IgnoreFormatting = true;
             compareOptions.Target = ComparisonTargetType.New;
 
@@ -1496,7 +1495,7 @@ namespace ApiExamples
             Document doc1 = new Document(MyDir + "Document.CompareOptions.1.docx");
             Document doc2 = new Document(MyDir + "Document.CompareOptions.2.docx");
 
-            CompareOptions compareOptions = new CompareOptions();
+            Aspose.Words.CompareOptions compareOptions = new Aspose.Words.CompareOptions();
             compareOptions.IgnoreFormatting = true;
             compareOptions.Target = ComparisonTargetType.Current;
 

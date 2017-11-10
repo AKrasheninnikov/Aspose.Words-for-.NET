@@ -13,7 +13,6 @@ using Aspose.Words.Lists;
 using Aspose.Words.Saving;
 using Aspose.Words.Settings;
 using NUnit.Framework;
-using List = Aspose.Words.Lists.List;
 
 namespace ApiExamples
 {
@@ -65,7 +64,7 @@ namespace ApiExamples
 
             doc.Lists.Add(ListTemplate.NumberDefault);
 
-            List list = doc.Lists[0];
+            Aspose.Words.Lists.List list = doc.Lists[0];
 
             // Set true to specify that the list has to be restarted at each section.
             list.IsRestartAtEachSection = true;

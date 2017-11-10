@@ -202,7 +202,7 @@ namespace ApiExamples
         /// <param name="builder">
         /// The builder.
         /// </param>
-        internal static void InsertTable(DocumentBuilder builder)
+        internal static Table InsertTable(DocumentBuilder builder)
         {
             //Start creating a new table
             Table table = builder.StartTable();
@@ -231,6 +231,8 @@ namespace ApiExamples
             builder.EndRow();
 
             builder.EndTable();
+
+            return table;
         }
 
         /// <summary>

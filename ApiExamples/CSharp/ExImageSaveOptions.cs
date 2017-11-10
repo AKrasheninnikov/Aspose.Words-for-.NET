@@ -8,7 +8,6 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Aspose.Words;
-using Aspose.Words.Drawing;
 using Aspose.Words.Saving;
 using NUnit.Framework;
 
