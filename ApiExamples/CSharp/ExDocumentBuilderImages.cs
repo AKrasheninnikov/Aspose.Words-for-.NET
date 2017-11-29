@@ -25,7 +25,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Stream stream = File.OpenRead(MyDir + @"\Images\Aspose.Words.gif");
+            Stream stream = File.OpenRead(ImageDir + "Aspose.Words.gif");
             try
             {
                 builder.InsertImage(stream, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
@@ -49,7 +49,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Prepare a byte array of an image.
-            Image image = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image image = Image.FromFile(ImageDir + "Aspose.Words.gif");
             ImageConverter imageConverter = new ImageConverter();
             byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof(byte[]));
 
@@ -68,7 +68,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Prepare a byte array of an image.
-            Image image = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image image = Image.FromFile(ImageDir + "Aspose.Words.gif");
             ImageConverter imageConverter = new ImageConverter();
             byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof(byte[]));
 
@@ -87,7 +87,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Prepare a byte array of an image.
-            Image image = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image image = Image.FromFile(ImageDir + "Aspose.Words.gif");
             ImageConverter imageConverter = new ImageConverter();
             byte[] imageBytes = (byte[])imageConverter.ConvertTo(image, typeof(byte[]));
 
@@ -105,7 +105,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Image rasterImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image rasterImage = Image.FromFile(ImageDir + "Aspose.Words.gif");
             try
             {
                 builder.InsertImage(rasterImage, ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
@@ -128,7 +128,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Image rasterImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image rasterImage = Image.FromFile(ImageDir + "Aspose.Words.gif");
             try
             {
                 builder.InsertImage(rasterImage, RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
@@ -151,7 +151,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Stream stream = File.OpenRead(MyDir + @"\Images\Aspose.Words.gif");
+            Stream stream = File.OpenRead(ImageDir + "Aspose.Words.gif");
             try
             {
                 builder.InsertImage(stream, ConvertUtil.PixelToPoint(400), ConvertUtil.PixelToPoint(400));
@@ -178,7 +178,7 @@ namespace ApiExamples
             builder.InsertImage("http://www.aspose.com/images/aspose-logo.gif", ConvertUtil.PixelToPoint(450), ConvertUtil.PixelToPoint(144));
 
             // Local URI
-            builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif", ConvertUtil.PixelToPoint(400), ConvertUtil.PixelToPoint(400));
+            builder.InsertImage(ImageDir + "Aspose.Words.gif", ConvertUtil.PixelToPoint(400), ConvertUtil.PixelToPoint(400));
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertImageFromUrlCustomSize.doc");
             //ExEnd

@@ -21,7 +21,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExDocumentBuilder : ApiExampleBase
     {
-        private readonly string _image = MyDir + @"\Images\Test_636_852.gif";
+        private readonly string _image = ImageDir + "Test_636_852.gif";
 
         [Test]
         public void WriteAndFont()
@@ -271,7 +271,7 @@ namespace ApiExamples
             // The best place for the watermark image is in the header or footer so it is shown on every page.
             builder.MoveToHeaderFooter(HeaderFooterType.HeaderPrimary);
 
-            Image image = Image.FromFile(MyDir + @"\Images\Watermark.png");
+            Image image = Image.FromFile(ImageDir + "Watermark.png");
 
             // Insert a floating picture.
             Shape shape = builder.InsertImage(image);
@@ -1445,7 +1445,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertImage(MyDir + @"\Images\Watermark.png");
+            builder.InsertImage(ImageDir + "Watermark.png");
             //ExEnd
         }
 
@@ -1459,7 +1459,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            builder.InsertImage(MyDir + @"\Images\Watermark.png", RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
+            builder.InsertImage(ImageDir + "Watermark.png", RelativeHorizontalPosition.Margin, 100, RelativeVerticalPosition.Margin, 100, 200, 100, WrapType.Square);
             //ExEnd
         }
 
@@ -1493,7 +1493,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Pass a negative value to the width and height values to specify using the size of the source image.
-            builder.InsertImage(MyDir + @"\Images\LogoSmall.png", RelativeHorizontalPosition.Margin, 200, RelativeVerticalPosition.Margin, 100, -1, -1, WrapType.Square);
+            builder.InsertImage(ImageDir + "LogoSmall.png", RelativeHorizontalPosition.Margin, 200, RelativeVerticalPosition.Margin, 100, -1, -1, WrapType.Square);
             //ExEnd
 
             doc.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertImageOriginalSize.doc");
@@ -1930,7 +1930,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
+            Image representingImage = Image.FromFile(ImageDir + "Aspose.Words.gif");
 
             Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
             Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, null);

@@ -83,6 +83,14 @@ namespace ApiExamples
         }
 
         /// <summary>
+        /// Gets the path to the iamges used by the code examples. Ends with a back slash.
+        /// </summary>
+        internal static string ImageDir
+        {
+            get { return gImageDir; }
+        }
+
+        /// <summary>
         /// Gets the path of the demo database. Ends with a back slash.
         /// </summary>
         internal static string DatabaseDir
@@ -94,11 +102,13 @@ namespace ApiExamples
         {
             gAssemblyDir = GetAssemblyDir(Assembly.GetExecutingAssembly());
             gMyDir = new Uri(new Uri(gAssemblyDir), @"../../../Data/").LocalPath;
+            gImageDir = new Uri(new Uri(gAssemblyDir), @"../../../Data/Images/").LocalPath;
             gDatabaseDir = new Uri(new Uri(gAssemblyDir), @"../../../Data/Database/").LocalPath;
         }
 
         private static readonly string gAssemblyDir;
         private static readonly string gMyDir;
+        private static readonly string gImageDir;
         private static readonly string gDatabaseDir;
 
         /// <summary>
