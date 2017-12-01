@@ -20,8 +20,8 @@ namespace ApiExamples
     [TestFixture]
     public class ExReportingEngine : ApiExampleBase
     {
-        private readonly string _image = MyDir + @"\Images\Test_636_852.gif";
-        private readonly string _doc = MyDir + "ReportingEngine.TestDataTable.docx";
+        private readonly String _image = MyDir + @"\Images\Test_636_852.gif";
+        private readonly String _doc = MyDir + "ReportingEngine.TestDataTable.docx";
 
         [Test]
         public void SimpleCase()
@@ -428,7 +428,7 @@ namespace ApiExamples
             Assert.AreEqual(ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak, builder.Document.GetText());
         }
 
-        private static void BuildReport(Document document, object dataSource, string dataSourceName, ReportBuildOptions reportBuildOptions)
+        private static void BuildReport(Document document, object dataSource, String dataSourceName, ReportBuildOptions reportBuildOptions)
         {
             ReportingEngine engine = new ReportingEngine();
             engine.Options = reportBuildOptions;
@@ -436,13 +436,13 @@ namespace ApiExamples
             engine.BuildReport(document, dataSource, dataSourceName);
         }
 
-        private static void BuildReport(Document document, object[] dataSource, string[] dataSourceName)
+        private static void BuildReport(Document document, object[] dataSource, String[] dataSourceName)
         {
             ReportingEngine engine = new ReportingEngine();
             engine.BuildReport(document, dataSource, dataSourceName);
         }
 
-        private static void BuildReport(Document document, object dataSource, string dataSourceName)
+        private static void BuildReport(Document document, object dataSource, String dataSourceName)
         {
             ReportingEngine engine = new ReportingEngine();
             engine.BuildReport(document, dataSource, dataSourceName);

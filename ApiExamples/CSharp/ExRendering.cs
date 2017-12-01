@@ -787,7 +787,7 @@ namespace ApiExamples
             // Note that this setting will override any default font sources that are being searched by default. Now only these folders will be searched for 
             // fonts when rendering or embedding fonts. To add an extra font source while keeping system font sources then use both FontSettings.GetFontSources and 
             // FontSettings.SetFontSources instead.
-            FontSettings.DefaultInstance.SetFontsFolders(new string[] { @"C:\MyFonts\", @"D:\Misc\Fonts\" }, true);
+            FontSettings.DefaultInstance.SetFontsFolders(new String[] { @"C:\MyFonts\", @"D:\Misc\Fonts\" }, true);
 
             doc.Save(MyDir + @"\Artifacts\Rendering.SetFontsFolders.pdf");
             //ExEnd
@@ -861,7 +861,7 @@ namespace ApiExamples
         public void SetFontSubstitutes()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontSubstitutes("Times New Roman", new string[] { "Slab", "Arvo" });
+            fontSettings.SetFontSubstitutes("Times New Roman", new String[] { "Slab", "Arvo" });
 
             Document doc = new Document(MyDir + "Rendering.doc");
             doc.FontSettings = fontSettings;
@@ -875,15 +875,15 @@ namespace ApiExamples
 
             Assert.AreEqual("Times New Roman", doc.FontSettings.DefaultFontName);
 
-            string[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Times New Roman");
-            Assert.AreEqual(new string[] { "Slab", "Arvo" }, alternativeFonts);
+            String[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Times New Roman");
+            Assert.AreEqual(new String[] { "Slab", "Arvo" }, alternativeFonts);
         }
 
         [Test]
         public void SetSpecifyFontFolders()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontsFolders(new string[] { MyDir + @"MyFonts\", @"C:\Windows\Fonts\" }, true);
+            fontSettings.SetFontsFolders(new String[] { MyDir + @"MyFonts\", @"C:\Windows\Fonts\" }, true);
 
             // Using load options
             LoadOptions loadOptions = new LoadOptions();
@@ -903,8 +903,8 @@ namespace ApiExamples
         public void AddFontSubstitutes()
         {
             FontSettings fontSettings = new FontSettings();
-            fontSettings.SetFontSubstitutes("Slab", new string[] { "Times New Roman", "Arial" });
-            fontSettings.AddFontSubstitutes("Arvo", new string[] { "Open Sans", "Arial" });
+            fontSettings.SetFontSubstitutes("Slab", new String[] { "Times New Roman", "Arial" });
+            fontSettings.AddFontSubstitutes("Arvo", new String[] { "Open Sans", "Arial" });
 
             Document doc = new Document(MyDir + "Rendering.doc");
             doc.FontSettings = fontSettings;
@@ -912,11 +912,11 @@ namespace ApiExamples
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
 
-            string[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Slab");
-            Assert.AreEqual(new string[] { "Times New Roman", "Arial" }, alternativeFonts);
+            String[] alternativeFonts = doc.FontSettings.GetFontSubstitutes("Slab");
+            Assert.AreEqual(new String[] { "Times New Roman", "Arial" }, alternativeFonts);
 
             alternativeFonts = doc.FontSettings.GetFontSubstitutes("Arvo");
-            Assert.AreEqual(new string[] { "Open Sans", "Arial" }, alternativeFonts);
+            Assert.AreEqual(new String[] { "Open Sans", "Arial" }, alternativeFonts);
         }
 
         [Test]
@@ -956,7 +956,7 @@ namespace ApiExamples
             // For testing we will set Aspose.Words to look for fonts only in a folder which doesn't exist. Since Aspose.Words won't
             // find any fonts in the specified directory, then during rendering the fonts in the document will be subsuited with the default 
             // font specified under FontSettings.DefaultFontName. We can pick up on this subsuition using our callback.
-            FontSettings.DefaultInstance.SetFontsFolder(string.Empty, false);
+            FontSettings.DefaultInstance.SetFontsFolder(String.Empty, false);
 
             //ExStart
             //ExId:FontSubstitutionUpdatePageLayout
@@ -1072,7 +1072,7 @@ namespace ApiExamples
             PdfSaveOptions saveOptions = new PdfSaveOptions();
 
             // Create encryption details and set owner password.
-            PdfEncryptionDetails encryptionDetails = new PdfEncryptionDetails(string.Empty, "password", PdfEncryptionAlgorithm.RC4_128);
+            PdfEncryptionDetails encryptionDetails = new PdfEncryptionDetails(String.Empty, "password", PdfEncryptionAlgorithm.RC4_128);
 
             // Start by disallowing all permissions.
             encryptionDetails.Permissions = PdfPermissions.DisallowAll;

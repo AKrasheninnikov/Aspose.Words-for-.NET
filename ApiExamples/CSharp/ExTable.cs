@@ -59,7 +59,7 @@ namespace ApiExamples
                     {
                         int cellIndex = row.Cells.IndexOf(cell);
                         // Get the plain text content of this cell.
-                        string cellText = cell.ToString(SaveFormat.Text).Trim();
+                        String cellText = cell.ToString(SaveFormat.Text).Trim();
                         // Print the content of the cell.
                         Console.WriteLine("\t\tContents of Cell:{0} = \"{1}\"", cellIndex, cellText);
                     }
@@ -489,7 +489,7 @@ namespace ApiExamples
             //ExFor:Range.Replace(String, String, FindReplaceOptions)
             //ExFor:Cell
             //ExId:ReplaceTextTable
-            //ExSummary:Shows how to replace all instances of string of text in a table and cell.
+            //ExSummary:Shows how to replace all instances of String of text in a table and cell.
             Document doc = new Document(MyDir + "Table.SimpleTable.doc");
 
             // Get the first table in the document.
@@ -499,9 +499,9 @@ namespace ApiExamples
             options.MatchCase = true;
             options.FindWholeWordsOnly = true;
 
-            // Replace any instances of our string in the entire table.
+            // Replace any instances of our String in the entire table.
             table.Range.Replace("Carrots", "Eggs", options);
-            // Replace any instances of our string in the last cell of the table only.
+            // Replace any instances of our String in the last cell of the table only.
             table.LastRow.LastCell.Range.Replace("50", "20", options);
 
             doc.Save(MyDir + @"\Artifacts\Table.ReplaceCellText.doc");
@@ -685,7 +685,7 @@ namespace ApiExamples
 
             // Verify that the row was cloned and appended properly.
             Assert.AreEqual(5, table.Rows.Count);
-            Assert.AreEqual(string.Empty, table.LastRow.ToString(SaveFormat.Text).Trim());
+            Assert.AreEqual(String.Empty, table.LastRow.ToString(SaveFormat.Text).Trim());
             Assert.AreEqual(2, table.LastRow.Cells.Count);
         }
 
@@ -948,7 +948,7 @@ namespace ApiExamples
         /// <summary>
         /// Creates a new table in the document with the given dimensions and text in each cell.
         /// </summary>
-        private Table CreateTable(Document doc, int rowCount, int cellCount, string cellText)
+        private Table CreateTable(Document doc, int rowCount, int cellCount, String cellText)
         {
             Table table = new Table(doc);
 
@@ -1000,20 +1000,20 @@ namespace ApiExamples
             Assert.AreEqual("The cell at R1, C1 is horizontally merged.", this.PrintCellMergeType(table.FirstRow.FirstCell)); //ExSkip
         }
 
-        public string PrintCellMergeType(Cell cell)
+        public String PrintCellMergeType(Cell cell)
         {
             bool isHorizontallyMerged = cell.CellFormat.HorizontalMerge != CellMerge.None;
             bool isVerticallyMerged = cell.CellFormat.VerticalMerge != CellMerge.None;
-            string cellLocation = string.Format("R{0}, C{1}", cell.ParentRow.ParentTable.IndexOf(cell.ParentRow) + 1, cell.ParentRow.IndexOf(cell) + 1);
+            String cellLocation = String.Format("R{0}, C{1}", cell.ParentRow.ParentTable.IndexOf(cell.ParentRow) + 1, cell.ParentRow.IndexOf(cell) + 1);
 
             if (isHorizontallyMerged && isVerticallyMerged)
-                return string.Format("The cell at {0} is both horizontally and vertically merged", cellLocation);
+                return String.Format("The cell at {0} is both horizontally and vertically merged", cellLocation);
             else if (isHorizontallyMerged)
-                return string.Format("The cell at {0} is horizontally merged.", cellLocation);
+                return String.Format("The cell at {0} is horizontally merged.", cellLocation);
             else if (isVerticallyMerged)
-                return string.Format("The cell at {0} is vertically merged", cellLocation);
+                return String.Format("The cell at {0} is vertically merged", cellLocation);
             else
-                return string.Format("The cell at {0} is not merged", cellLocation);
+                return String.Format("The cell at {0} is not merged", cellLocation);
         }
         //ExEnd
 

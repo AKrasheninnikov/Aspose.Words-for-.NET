@@ -187,7 +187,7 @@ namespace ApiExamples
             Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE");
 
             // Execute mail merge.
-            doc.MailMerge.Execute(new string[] { "Date" }, new object[] { DateTime.Now });
+            doc.MailMerge.Execute(new String[] { "Date" }, new object[] { DateTime.Now });
 
             // Restore the original culture.
             Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -233,21 +233,21 @@ namespace ApiExamples
         public class InsertTcFieldHandler : IReplacingCallback
         {
             // Store the text and switches to be used for the TC fields.
-            private string mFieldText;
-            private string mFieldSwitches;
+            private String mFieldText;
+            private String mFieldSwitches;
 
             /// <summary>
-            /// The switches to use for each TC field. Can be an empty string or null.
+            /// The switches to use for each TC field. Can be an empty String or null.
             /// </summary>
-            public InsertTcFieldHandler(string switches) : this(string.Empty, switches)
+            public InsertTcFieldHandler(String switches) : this(String.Empty, switches)
             {
                 this.mFieldSwitches = switches;
             }
 
             /// <summary>
-            /// The display text and switches to use for each TC field. Display name can be an empty string or null.
+            /// The display text and switches to use for each TC field. Display name can be an empty String or null.
             /// </summary>
-            public InsertTcFieldHandler(string text, string switches)
+            public InsertTcFieldHandler(String text, String switches)
             {
                 this.mFieldText = text;
                 this.mFieldSwitches = switches;
@@ -261,16 +261,16 @@ namespace ApiExamples
                 builder.MoveTo(args.MatchNode);
 
                 // If the user specified text to be used in the field as display text then use that, otherwise use the 
-                // match string as the display text.
-                string insertText;
+                // match String as the display text.
+                String insertText;
 
-                if (!string.IsNullOrEmpty(this.mFieldText))
+                if (!String.IsNullOrEmpty(this.mFieldText))
                     insertText = this.mFieldText;
                 else
                     insertText = args.Match.Value;
 
-                // Insert the TC field before this node using the specified string as the display text and user defined switches.
-                builder.InsertField(string.Format("TC \"{0}\" {1}", insertText, this.mFieldSwitches));
+                // Insert the TC field before this node using the specified String as the display text and user defined switches.
+                builder.InsertField(String.Format("TC \"{0}\" {1}", insertText, this.mFieldSwitches));
 
                 // We have done what we want so skip replacement.
                 return ReplaceAction.Skip;
@@ -330,7 +330,7 @@ namespace ApiExamples
             Assert.AreEqual("QR", barCode.GetCodeType().ToString());
         }
 
-        private BarCodeReader BarCodeReaderPdf(string filename)
+        private BarCodeReader BarCodeReaderPdf(String filename)
         {
             //Set license for Aspose.BarCode
             Aspose.BarCode.License licenceBarCode = new Aspose.BarCode.License();
@@ -425,7 +425,7 @@ namespace ApiExamples
 
             doc.UnlinkFields();
 
-            string paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
+            String paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
             Assert.AreEqual("Fields.Docx   Элементы указателя не найдены.     1.\r", paraWithFields);
         }
 
@@ -439,7 +439,7 @@ namespace ApiExamples
 
             doc.Sections[1].Range.UnlinkFields();
 
-            string secWithFields = DocumentHelper.GetSectionText(doc, 1);
+            String secWithFields = DocumentHelper.GetSectionText(doc, 1);
             Assert.AreEqual(secWithFields, "Fields.Docx   Элементы указателя не найдены.     3.\rОшибка! Не указана последовательность.    Fields.Docx   Элементы указателя не найдены.     4.\r\r\r\r\r\f");
         }
 
@@ -449,7 +449,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "UnlinkFields.docx");
             doc.Range.Fields[1].Unlink();
 
-            string paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
+            String paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
             Assert.AreEqual(paraWithFields, "\u0013 FILENAME  \\* Caps  \\* MERGEFORMAT \u0014Fields.Docx\u0015   Элементы указателя не найдены.     \u0013 LISTNUM  LegalDefault \u0015\r");
         }
 

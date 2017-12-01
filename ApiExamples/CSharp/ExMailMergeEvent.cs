@@ -29,7 +29,7 @@ namespace ApiExamples
         }
 
         //ExStart
-        //ExFor:DocumentBuilder.InsertHtml(string)
+        //ExFor:DocumentBuilder.InsertHtml(String)
         //ExFor:MailMerge.FieldMergingCallback
         //ExFor:IFieldMergingCallback
         //ExFor:FieldMergingArgs
@@ -99,7 +99,7 @@ namespace ApiExamples
         }
 
         //ExStart
-        //ExFor:DocumentBuilder.MoveToMergeField(string)
+        //ExFor:DocumentBuilder.MoveToMergeField(String)
         //ExFor:FieldMergingArgsBase.FieldName
         //ExSummary:Shows how to insert checkbox form fields into a document during mail merge.
         // File 'MailMerge.InsertCheckBox.doc' is a template
@@ -297,7 +297,7 @@ namespace ApiExamples
 
         //ExStart
         //ExFor:MailMerge.FieldMergingCallback
-        //ExFor:MailMerge.ExecuteWithRegions(IDataReader,string)
+        //ExFor:MailMerge.ExecuteWithRegions(IDataReader,String)
         //ExFor:IFieldMergingCallback
         //ExFor:ImageFieldMergingArgs
         //ExFor:IFieldMergingCallback.FieldMerging

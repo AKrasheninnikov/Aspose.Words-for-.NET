@@ -88,7 +88,7 @@ namespace ApiExamples
 
             Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(MyDir + @"\Artifacts\UpdateFields_False.pdf");
 
-            //Get text fragment by search string
+            //Get text fragment by search String
             TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("Page  of");
             pdfDocument.Pages.Accept(textFragmentAbsorber);
 
@@ -108,7 +108,7 @@ namespace ApiExamples
 
             Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(MyDir + @"\Artifacts\UpdateFields_False.pdf");
 
-            //Get text fragment by search string
+            //Get text fragment by search String
             TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber("Page 1 of 2");
             pdfDocument.Pages.Accept(textFragmentAbsorber);
 

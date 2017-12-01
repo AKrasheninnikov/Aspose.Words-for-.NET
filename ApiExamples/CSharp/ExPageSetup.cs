@@ -335,7 +335,7 @@ namespace ApiExamples
             //ExFor:PageSetup.RestartPageNumbering
             //ExFor:PageSetup.PageStartingNumber
             //ExFor:PageSetup.PageNumberStyle
-            //ExFor:DocumentBuilder.InsertField(string, string)
+            //ExFor:DocumentBuilder.InsertField(String, String)
             //ExSummary:Shows how to control page numbering per section.
             // This document has two sections, but no page numbers yet.
             Document doc = new Document(MyDir + "PageSetup.PageNumbering.doc");

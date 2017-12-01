@@ -89,12 +89,12 @@ namespace ApiExamples
         }
 
         //ExStart
-        //ExFor:Range.Replace(Regex, string, FindReplaceOptions)
+        //ExFor:Range.Replace(Regex, String, FindReplaceOptions)
         //ExFor:ReplacingArgs.Replacement
         //ExFor:IReplacingCallback
         //ExFor:IReplacingCallback.Replacing
         //ExFor:ReplacingArgs
-        //ExFor:DocumentBuilder.InsertHtml(string)
+        //ExFor:DocumentBuilder.InsertHtml(String)
         //ExSummary:Replaces text specified with regular expression with HTML.
         public void ReplaceWithInsertHtml()
         {
@@ -169,7 +169,7 @@ namespace ApiExamples
                 int number = Convert.ToInt32(args.Match.Value);
 
                 // And write it as HEX.
-                args.Replacement = string.Format("0x{0:X}", number);
+                args.Replacement = String.Format("0x{0:X}", number);
 
                 return ReplaceAction.Replace;
             }
@@ -209,7 +209,7 @@ namespace ApiExamples
             //ExId:RangesGetText
             //ExSummary:Shows how to get plain, unformatted text of a range.
             Document doc = new Document(MyDir + "Document.doc");
-            string text = doc.Range.Text;
+            String text = doc.Range.Text;
             //ExEnd
         }
 

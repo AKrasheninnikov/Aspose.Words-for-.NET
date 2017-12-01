@@ -106,7 +106,7 @@ namespace ApiExamples
             // The main document has a merge field in it called "Document_1".
             // The corresponding data for this field contains fully qualified path to the document
             // that should be inserted to this field.
-            mainDoc.MailMerge.Execute(new string[] { "Document_1" }, new string[] { MyDir + "InsertDocument2.doc" });
+            mainDoc.MailMerge.Execute(new String[] { "Document_1" }, new String[] { MyDir + "InsertDocument2.doc" });
 
             mainDoc.Save(MyDir + @"\Artifacts\InsertDocumentAtMailMerge.doc");
         }
@@ -127,7 +127,7 @@ namespace ApiExamples
                     builder.MoveToMergeField(e.DocumentFieldName);
 
                     // The name of the document to load and insert is stored in the field value.
-                    Document subDoc = new Document((string)e.FieldValue);
+                    Document subDoc = new Document((String)e.FieldValue);
 
                     // Insert the document.
                     InsertDocument(builder.CurrentParagraph, subDoc);

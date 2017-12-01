@@ -624,7 +624,7 @@ namespace ApiExamples
 
             FontSettings fontSettings = new FontSettings();
             fontSettings.DefaultFontName = "Arial";
-            fontSettings.SetFontSubstitutes("Arial", new string[] { "Arvo", "Slab" });
+            fontSettings.SetFontSubstitutes("Arial", new String[] { "Arvo", "Slab" });
             fontSettings.SetFontsFolder(MyDir + @"MyFonts\", false);
 
             doc.FontSettings = fontSettings;

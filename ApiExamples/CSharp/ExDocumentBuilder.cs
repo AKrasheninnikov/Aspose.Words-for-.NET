@@ -21,7 +21,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExDocumentBuilder : ApiExampleBase
     {
-        private readonly string _image = ImageDir + "Test_636_852.gif";
+        private readonly String _image = ImageDir + "Test_636_852.gif";
 
         [Test]
         public void WriteAndFont()
@@ -95,7 +95,7 @@ namespace ApiExamples
         public void InsertMergeField()
         {
             //ExStart
-            //ExFor:DocumentBuilder.InsertField(string)
+            //ExFor:DocumentBuilder.InsertField(String)
             //ExId:DocumentBuilderInsertField
             //ExSummary:Inserts a merge field into a document using DocumentBuilder.
             Document doc = new Document();
@@ -108,7 +108,7 @@ namespace ApiExamples
         public void InsertField()
         {
             //ExStart
-            //ExFor:DocumentBuilder.InsertField(string)
+            //ExFor:DocumentBuilder.InsertField(String)
             //ExFor:Field
             //ExFor:Field.Update
             //ExFor:Field.Result
@@ -294,7 +294,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:DocumentBuilder
-            //ExFor:DocumentBuilder.InsertHtml(string)
+            //ExFor:DocumentBuilder.InsertHtml(String)
             //ExId:DocumentBuilderInsertHtml
             //ExSummary:Inserts HTML into a document. The formatting specified in the HTML is applied.
             Document doc = new Document();
@@ -331,7 +331,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            const string MathMl = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
+            const String MathMl = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
 
             builder.InsertHtml(MathMl);
 
@@ -372,7 +372,7 @@ namespace ApiExamples
             builder.Writeln("");
             builder.Writeln("");
 
-            string[] items = new string[] { "-- Select your favorite footwear --", "Sneakers", "Oxfords", "Flip-flops", "Other", "I prefer to be barefoot" };
+            String[] items = new String[] { "-- Select your favorite footwear --", "Sneakers", "Oxfords", "Flip-flops", "Other", "I prefer to be barefoot" };
 
             // Insert a combo box to select a footwear type.
             builder.InsertComboBox("", items, 0);
@@ -390,8 +390,8 @@ namespace ApiExamples
         public void InsertCheckBox()
         {
             //ExStart
-            //ExFor:DocumentBuilder.InsertCheckBox(string, bool, bool, int)
-            //ExFor:DocumentBuilder.InsertCheckBox(string, bool, int)
+            //ExFor:DocumentBuilder.InsertCheckBox(String, bool, bool, int)
+            //ExFor:DocumentBuilder.InsertCheckBox(String, bool, int)
             //ExSummary:Shows how to insert checkboxes to the document
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
@@ -441,9 +441,9 @@ namespace ApiExamples
 
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            //Assert that empty string name working correctly
+            //Assert that empty String name working correctly
             builder.InsertCheckBox("", true, false, 1);
-            builder.InsertCheckBox(string.Empty, false, 1);
+            builder.InsertCheckBox(String.Empty, false, 1);
         }
 
         [Test]
@@ -488,7 +488,7 @@ namespace ApiExamples
         public void FillingDocument()
         {
             //ExStart
-            //ExFor:DocumentBuilder.MoveToMergeField(string)
+            //ExFor:DocumentBuilder.MoveToMergeField(String)
             //ExFor:DocumentBuilder.Bold
             //ExFor:DocumentBuilder.Italic
             //ExSummary:Fills document merge fields with some data.
@@ -841,7 +841,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExId:InsertTableFromHtml
-            //ExSummary:Shows how to insert a table in a document from a string containing HTML tags.
+            //ExSummary:Shows how to insert a table in a document from a String containing HTML tags.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -1538,7 +1538,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            string[] items = { "One", "Two", "Three" };
+            String[] items = { "One", "Two", "Three" };
             builder.InsertComboBox("DropDown", items, 0);
             //ExEnd
         }
@@ -1630,7 +1630,7 @@ namespace ApiExamples
             font.Underline = Underline.Double;
 
             // Output formatted text
-            builder.Writeln("I'm a very nice formatted string.");
+            builder.Writeln("I'm a very nice formatted String.");
             //ExEnd
         }
 
@@ -1788,8 +1788,8 @@ namespace ApiExamples
             //ExStart
             //ExFor:Footnote
             //ExFor:FootnoteType
-            //ExFor:DocumentBuilder.InsertFootnote(FootnoteType,string)
-            //ExFor:DocumentBuilder.InsertFootnote(FootnoteType,string,string)
+            //ExFor:DocumentBuilder.InsertFootnote(FootnoteType,String)
+            //ExFor:DocumentBuilder.InsertFootnote(FootnoteType,String,String)
             //ExSummary:Shows how to add a footnote to a paragraph in the document using DocumentBuilder.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
@@ -1982,7 +1982,7 @@ namespace ApiExamples
             seriesColl.Clear();
 
             // Create category names array, second category will be null.
-            string[] categories = new string[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
+            String[] categories = new String[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
 
             // Adding new series with empty (double.NaN) values.
             seriesColl.Add("AW Series 1", categories, new double[] { 1, 2, double.NaN, 4, 5, 6 });
@@ -2005,7 +2005,7 @@ namespace ApiExamples
             seriesColl.Clear();
 
             // Create category names array, second category will be null.
-            string[] categories = new string[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
+            String[] categories = new String[] { "Cat1", null, "Cat3", "Cat4", "Cat5", null };
 
             // Adding new series with empty (double.NaN) values.
             seriesColl.Add("AW Series 1", categories, new double[] { 1, 2, double.NaN, 4, 5, 6 });
@@ -2055,7 +2055,7 @@ namespace ApiExamples
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             // Pass direct url from youtu.be.
-            string url = "https://youtu.be/t_1LYZ102RA";
+            String url = "https://youtu.be/t_1LYZ102RA";
 
             double width = 360;
             double height = 270;
@@ -2077,10 +2077,10 @@ namespace ApiExamples
             byte[] imageBytes = File.ReadAllBytes(this._image);
 
             // Visible url
-            string vimeoVideoUrl = @"https://vimeo.com/52477838";
+            String vimeoVideoUrl = @"https://vimeo.com/52477838";
 
             // Embed Html code.
-            string vimeoEmbedCode = "<iframe src=\"https://player.vimeo.com/video/52477838\" width=\"640\" height=\"360\" frameborder=\"0\" title=\"Aspose\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+            String vimeoEmbedCode = "<iframe src=\"https://player.vimeo.com/video/52477838\" width=\"640\" height=\"360\" frameborder=\"0\" title=\"Aspose\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
 
             builder.InsertOnlineVideo(vimeoVideoUrl, vimeoEmbedCode, imageBytes, width, height);
         }

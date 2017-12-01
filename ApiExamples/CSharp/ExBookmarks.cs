@@ -171,32 +171,30 @@ namespace ApiExamples
             p.AppendChild(new Run(doc, "Text after bookmark."));
 
             doc.Save(MyDir + @"\Artifacts\Bookmarks.CreateBookmarkWithNodes.doc");
+            //ExEnd
 
             Assert.AreEqual(doc.Range.Bookmarks["My bookmark"].Text, "Text inside bookmark. ");
-            //ExEnd
         }
 
         [Test]
         public void ReplaceBookmarkUnderscoresWithWhitespaces()
         {
             //ExStart
-            //ExFor:Bookmark.Name.Replace(string, string)
+            //ExFor:Bookmark.Name.Replace(String, String)
             //ExSummary:Shows how to replace elements in bookmark name
             Document doc = new Document(MyDir + "Bookmarks.Replace.docx");
 
+            Assert.AreEqual("My_Bookmark", doc.Range.Bookmarks[0].Name); //ExSkip
+
             //MS Word document does not support bookmark names with whitespaces by default. 
             //If you have document which contains bookmark names with underscores, you can simply replace them to whitespaces.
-            BookmarkCollection bookmarks = doc.Range.Bookmarks;
-
-            Assert.AreEqual("My_Bookmark", bookmarks[0].Name);
-
             foreach (Aspose.Words.Bookmark bookmark in doc.Range.Bookmarks)
             {
                 bookmark.Name = bookmark.Name.Replace("_", " ");
             }
-
-            Assert.AreEqual("My Bookmark", bookmarks[0].Name); //Check that our replace was correct
             //ExEnd
+
+            Assert.AreEqual("My Bookmark", doc.Range.Bookmarks[0].Name); //Check that our replace was correct
         }
 
         [Test]
@@ -204,7 +202,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:OutlineOptions.BookmarksOutlineLevels
-            //ExFor:BookmarksOutlineLevelCollection.Add(string, int)
+            //ExFor:BookmarksOutlineLevelCollection.Add(String, Int32)
             //ExSummary:Shows how adding bookmarks outlines with whitespaces(pdf, xps, swf)
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);

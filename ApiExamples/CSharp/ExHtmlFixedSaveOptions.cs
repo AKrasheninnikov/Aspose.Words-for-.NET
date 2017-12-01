@@ -95,7 +95,7 @@ namespace ApiExamples
         [Test]
         [TestCase("aw")]
         [TestCase("")]
-        public void CssPrefix(string cssprefix)
+        public void CssPrefix(String cssprefix)
         {
             Document doc = new Document(MyDir + "Bookmark.doc");
 

@@ -491,7 +491,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:Node.ToString(SaveFormat)
-            //ExSummary:Exports the content of a node to string in HTML format using default options.
+            //ExSummary:Exports the content of a node to String in HTML format using default options.
             Document doc = new Document(MyDir + "Document.doc");
 
             // Extract the last paragraph in the document to convert to HTML.
@@ -502,7 +502,7 @@ namespace ApiExamples
             //   ExportImagesAsBase64 = true
             //   CssStyleSheetType = CssStyleSheetType.Inline
             //   ExportFontResources = false
-            string nodeAsHtml = node.ToString(SaveFormat.Html);
+            String nodeAsHtml = node.ToString(SaveFormat.Html);
             //ExEnd
 
             Assert.AreEqual("<p style=\"margin-top:0pt; margin-bottom:0pt; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>", nodeAsHtml);
@@ -513,7 +513,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExFor:Node.ToString(SaveOptions)
-            //ExSummary:Exports the content of a node to string in HTML format using custom specified options.
+            //ExSummary:Exports the content of a node to String in HTML format using custom specified options.
             Document doc = new Document(MyDir + "Document.doc");
 
             // Extract the last paragraph in the document to convert to HTML.
@@ -524,9 +524,9 @@ namespace ApiExamples
             saveOptions.ExportHeadersFootersMode = ExportHeadersFootersMode.PerSection;
             saveOptions.ExportRelativeFontSize = true;
 
-            // Convert the document to HTML and return as a string. Pass the instance of HtmlSaveOptions to
+            // Convert the document to HTML and return as a String. Pass the instance of HtmlSaveOptions to
             // to use the specified options during the conversion.
-            string nodeAsHtml = node.ToString(saveOptions);
+            String nodeAsHtml = node.ToString(saveOptions);
             //ExEnd
 
             Assert.AreEqual("<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"font-family:'Times New Roman'\">Hello World!</span></p>", nodeAsHtml);

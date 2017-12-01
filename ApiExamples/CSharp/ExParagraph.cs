@@ -13,9 +13,9 @@ namespace ApiExamples
         public void InsertField()
         {
             //ExStart
-            //ExFor:Paragraph.InsertField(string, Node, bool)
+            //ExFor:Paragraph.InsertField(String, Node, bool)
             //ExFor:Paragraph.InsertField(FieldType, bool, Node, bool)
-            //ExFor:Paragraph.InsertField(string, string, Node, bool)
+            //ExFor:Paragraph.InsertField(String, String, Node, bool)
             //ExSummary:Shows how to insert field using several methods: "field code", "field code and field value", "field code and field value after a run of text"
             Document doc = new Document();
 
@@ -58,7 +58,7 @@ namespace ApiExamples
         [Test]
         public void InsertFieldAfterTextInParagraph()
         {
-            string date = DateTime.Today.ToString("d");
+            String date = DateTime.Today.ToString("d");
 
             Document doc = DocumentHelper.CreateDocumentFillWithDummyText();
 
@@ -216,16 +216,16 @@ namespace ApiExamples
         /// <summary>
         /// Insert field into the first paragraph of the current document using field code
         /// </summary>
-        private static void InsertFieldUsingFieldCode(Document doc, string fieldCode, Node refNode, bool isAfter, int paraIndex)
+        private static void InsertFieldUsingFieldCode(Document doc, String fieldCode, Node refNode, bool isAfter, int paraIndex)
         {
             Paragraph para = DocumentHelper.GetParagraph(doc, paraIndex);
             para.InsertField(fieldCode, refNode, isAfter);
         }
 
         /// <summary>
-        /// Insert field into the first paragraph of the current document using field code and field string
+        /// Insert field into the first paragraph of the current document using field code and field String
         /// </summary>
-        private static void InsertFieldUsingFieldCodeFieldString(Document doc, string fieldCode, string fieldValue, Node refNode, bool isAfter, int paraIndex)
+        private static void InsertFieldUsingFieldCodeFieldString(Document doc, String fieldCode, String fieldValue, Node refNode, bool isAfter, int paraIndex)
         {
             Paragraph para = DocumentHelper.GetParagraph(doc, paraIndex);
             para.InsertField(fieldCode, fieldValue, refNode, isAfter);

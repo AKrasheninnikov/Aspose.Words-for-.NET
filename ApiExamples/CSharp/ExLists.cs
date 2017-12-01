@@ -16,7 +16,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExLists : ApiExampleBase
     {
-        private readonly string _image = MyDir + @"\Images\Test_636_852.gif";
+        private readonly String _image = MyDir + @"\Images\Test_636_852.gif";
 
         [Test]
         public void ApplyDefaultBulletsAndNumbers()
@@ -391,7 +391,7 @@ namespace ApiExamples
             {
                 if (para.ListFormat.IsListItem)
                 {
-                    Console.WriteLine(string.Format("*** A paragraph belongs to list {0}", para.ListFormat.List.ListId));
+                    Console.WriteLine(String.Format("*** A paragraph belongs to list {0}", para.ListFormat.List.ListId));
                     Console.WriteLine(para.GetText());
                 }
             }
@@ -492,7 +492,7 @@ namespace ApiExamples
             builder.Document.Save(MyDir + @"\Artifacts\Lists.OutlineHeadingTemplates.doc");
         }
 
-        private static void AddOutlineHeadingParagraphs(DocumentBuilder builder, Aspose.Words.Lists.List list, string title)
+        private static void AddOutlineHeadingParagraphs(DocumentBuilder builder, Aspose.Words.Lists.List list, String title)
         {
             builder.ParagraphFormat.ClearFormatting();
             builder.Writeln(title);
@@ -502,7 +502,7 @@ namespace ApiExamples
                 builder.ListFormat.List = list;
                 builder.ListFormat.ListLevelNumber = i;
 
-                string styleName = "Heading " + (i + 1).ToString();
+                String styleName = "Heading " + (i + 1).ToString();
                 builder.ParagraphFormat.StyleName = styleName;
                 builder.Writeln(styleName);
             }
@@ -719,7 +719,7 @@ namespace ApiExamples
             //ExFor:Paragraph.ListLabel
             //ExFor:ListLabel.LabelValue
             //ExFor:ListLabel.LabelString
-            //ExSummary:Shows how to extract the label of each paragraph in a list as a value or a string.
+            //ExSummary:Shows how to extract the label of each paragraph in a list as a value or a String.
             Document doc = new Document(MyDir + "Lists.PrintOutAllLists.doc");
             doc.UpdateListLabels();
             int listParaCount = 1;
@@ -734,7 +734,7 @@ namespace ApiExamples
 
                     // This is the text we get when actually getting when we output this node to text format. 
                     // The list labels are not included in this text output. Trim any paragraph formatting characters.
-                    string paragraphText = paragraph.ToString(SaveFormat.Text).Trim();
+                    String paragraphText = paragraph.ToString(SaveFormat.Text).Trim();
                     Console.WriteLine("Exported Text: " + paragraphText);
 
                     ListLabel label = paragraph.ListLabel;

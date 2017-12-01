@@ -78,7 +78,7 @@ namespace ApiExamples
             /// <summary>
             /// Gets the plain text of the document that was accumulated by the visitor.
             /// </summary>
-            public string GetText()
+            public String GetText()
             {
                 return this.mBuilder.ToString();
             }
@@ -202,7 +202,7 @@ namespace ApiExamples
             /// <summary>
             /// Adds text to the current output. Honours the enabled/disabled output flag.
             /// </summary>
-            private void AppendText(string text)
+            private void AppendText(String text)
             {
                 if (!this.mIsSkipText)
                     this.mBuilder.Append(text);

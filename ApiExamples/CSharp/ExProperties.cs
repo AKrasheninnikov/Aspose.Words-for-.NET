@@ -25,7 +25,7 @@ namespace ApiExamples
             //ExFor:CustomDocumentProperties
             //ExId:DocumentProperties
             //ExSummary:Enumerates through all built-in and custom properties in a document.
-            string fileName = MyDir + "Properties.doc";
+            String fileName = MyDir + "Properties.doc";
             Document doc = new Document(fileName);
 
             Console.WriteLine("1. Document name: {0}", fileName);
@@ -51,7 +51,7 @@ namespace ApiExamples
             //ExFor:DocumentProperty.Value
             //ExFor:DocumentProperty.Type
             //ExSummary:Enumerates through all built-in and custom properties in a document using indexed access.
-            string fileName = MyDir + "Properties.doc";
+            String fileName = MyDir + "Properties.doc";
             Document doc = new Document(fileName);
 
             Console.WriteLine("1. Document name: {0}", fileName);
@@ -115,7 +115,7 @@ namespace ApiExamples
             //ExFor:BuiltInDocumentProperties.Version
             //ExFor:BuiltInDocumentProperties.Words
             //ExSummary:Retrieves information from the built-in document properties.
-            string fileName = MyDir + "Properties.doc";
+            String fileName = MyDir + "Properties.doc";
             Document doc = new Document(fileName);
 
             Console.WriteLine("Document name: {0}", fileName);
@@ -229,7 +229,7 @@ namespace ApiExamples
                 switch (prop.Type)
                 {
                     case PropertyType.String:
-                        Console.WriteLine("It's a string value.");
+                        Console.WriteLine("It's a String value.");
                         Console.WriteLine(prop.ToString());
                         break;
                     case PropertyType.Boolean:
