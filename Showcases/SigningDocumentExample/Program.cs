@@ -27,22 +27,22 @@ namespace SigningDocumentExample
         [Test]
         public static void Main()
         {
-            // We need to create simple List with test signers for this example.
+            // We need to create simple list with test signers for this example.
             CreateTestData();
             Console.WriteLine("Test data successfully added!");
 
             // Person who must sign the document
             string signPerson = "SignPerson 1";
-            // Path to document that we need to signed
+            // Path to document that we need to sign
             string srcDocument = DataDir + "TestFile.docx";
-            // Path to signed document
+            // Path to the signed document
             string dstDocument = DataDir + "SignedDocument.docx";
-            // Path to personal certificate
+            // Path to the personal certificate
             string certifacate = DataDir + "morzal.pfx";
             // Password of the personal certificate
             string passwordCertificate = "aw";
             
-            // Get signed document with personal certificate.
+            // Get signed document with a personal certificate.
             Document signedDocument = GetSignedDocument(srcDocument, dstDocument, signPerson, certifacate, passwordCertificate);
             Console.WriteLine("Document successfully signed!");
 
@@ -51,22 +51,31 @@ namespace SigningDocumentExample
             Console.WriteLine("Signed document successfully added!");
         }
 
+        /// <summary>
+        /// Get signed document 
+        /// </summary>
+        /// <param name="srcDocument">Path to the document to sign</param>
+        /// <param name="dstDocument">Path to the signed document</param>
+        /// <param name="signPerson">Person name who need to sign document</param>
+        /// <param name="certificate">Path to the personal certificate</param>
+        /// <param name="passwordCertificate">Password of the personal certificate</param>
+        /// <returns>Returns signed document</returns>
         private static Document GetSignedDocument(string srcDocument, string dstDocument, string signPerson, string certificate, string passwordCertificate)
         {
             // Get document that we need to sign.
             Document baseDocument = new Document(srcDocument);
             DocumentBuilder builder = new DocumentBuilder(baseDocument);
 
-            // Get sign person object by name of the person who must sign document.
+            // Get sign person object by name of the person who must sign a document.
             // This an example.
             // Actually, you need to return object from a data base.
             SignPerson signPersonInfo = (from c in mSignPersonList where c.Name == signPerson select c).FirstOrDefault();
 
-            // Create holder of certificate instanse base on your personal certificate.
+            // Create holder of certificate instance base on your personal certificate.
             // This is the test certificate generated for this example.
             CertificateHolder certificateHolder = CertificateHolder.Create(certificate, passwordCertificate);
 
-            // Let's add signature to the document and sign it with personal certificate.
+            // Let's add signature to the document and sign it with a personal certificate.
             SignDocument(builder, dstDocument, certificateHolder, signPersonInfo);
 
             return new Document(dstDocument);
@@ -76,21 +85,21 @@ namespace SigningDocumentExample
         /// Add signature line to the document and sign it with personal certificate
         /// </summary>
         /// <param name="builder">Class that provides methods for create SignatureLine</param>
-        /// <param name="dstDocument">Path to signed document</param>
-        /// <param name="certificateHolder">Holder of personal certificate instanse</param>
-        /// <param name="signPersonInfo">SignPerson object which contains info about person who must sign document</param>
+        /// <param name="dstDocument">Path to the signed document</param>
+        /// <param name="certificateHolder">Holder of personal certificate instance</param>
+        /// <param name="signPersonInfo">SignPerson object which contains info about person who must sign a document</param>
         private static void SignDocument(DocumentBuilder builder, string dstDocument, CertificateHolder certificateHolder, SignPerson signPersonInfo)
         {
-            // Add info about responsible person who sign document.
+            // Add info about responsible person who sign a document.
             SignatureLineOptions signatureLineOptions = new SignatureLineOptions();
             signatureLineOptions.Signer = signPersonInfo.Name;
             signatureLineOptions.SignerTitle = signPersonInfo.Position;
 
-            // Add signature line for responsible person who sign document.
+            // Add signature line for responsible person who sign a document.
             SignatureLine signatureLine = builder.InsertSignatureLine(signatureLineOptions).SignatureLine;
             signatureLine.Id = signPersonInfo.PersonId;
 
-            // Save document with line signatures into temporary file for future signing.
+            // Save a document with line signatures into temporary file for future signing.
             builder.Document.Save(dstDocument);
 
             // Link our signature line with personal signature.
@@ -98,14 +107,14 @@ namespace SigningDocumentExample
             signOptions.SignatureLineId = signPersonInfo.PersonId;
             signOptions.SignatureLineImage = signPersonInfo.Image;
 
-            // Sign document which contains signature line with personal certificate.
+            // Sign a document which contains signature line with personal certificate.
             DigitalSignatureUtil.Sign(dstDocument, dstDocument, certificateHolder, signOptions);
         }
 
         /// <summary>
-        /// Example method for add signed document to simple List
+        /// Example method for add signed document to simple list
         /// </summary>
-        /// <param name="signedDocument">Signed document that we need to add</param>
+        /// <param name="signedDocument">Signed document</param>
         /// <param name="documentName">Name of the signed document</param>
         private static void WriteSignedDocument(Document signedDocument, string documentName)
         {
@@ -123,7 +132,7 @@ namespace SigningDocumentExample
         }
 
         /// <summary>
-        /// Create test data with info about sing persons
+        /// Create test data contains info about sing persons
         /// </summary>
         private static void CreateTestData()
         {
