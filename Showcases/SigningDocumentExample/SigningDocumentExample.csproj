@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="ConvertHepler.cs" />
     <Compile Include="SignDocument.cs" />
-    <Compile Include="SignDocumentExample.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="SignPerson.cs" />
   </ItemGroup>
   <ItemGroup>

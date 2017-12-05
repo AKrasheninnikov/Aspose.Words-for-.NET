@@ -17,7 +17,7 @@ using NUnit.Framework;
 namespace SigningDocumentExample
 {
     [TestFixture]
-    public class SignDocumentExample
+    public class Program
     {
         // Sample infrastructure.
         static readonly string ExeDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath) + Path.DirectorySeparatorChar;
@@ -29,37 +29,57 @@ namespace SigningDocumentExample
         {
             // We need to create simple List with test signers for this example.
             CreateTestData();
-            // Let's define sign person who must sign the document.
-            string signer = "SignPerson 1";
+            Console.WriteLine("Test data successfully added!");
 
+            // Person who must sign the document
+            string signPerson = "SignPerson 1";
+            // Path to document that we need to signed
+            string srcDocument = DataDir + "TestFile.docx";
+            // Path to signed document
+            string dstDocument = DataDir + "SignedDocument.docx";
+            // Path to personal certificate
+            string certifacate = DataDir + "morzal.pfx";
+            // Password of the personal certificate
+            string passwordCertificate = "aw";
+            
+            // Get signed document with personal certificate.
+            Document signedDocument = GetSignedDocument(srcDocument, dstDocument, signPerson, certifacate, passwordCertificate);
+            Console.WriteLine("Document successfully signed!");
+
+            // Now we need add signed document to simple List.
+            WriteSignedDocument(signedDocument, "New signed document");
+            Console.WriteLine("Signed document successfully added!");
+        }
+
+        private static Document GetSignedDocument(string srcDocument, string dstDocument, string signPerson, string certificate, string passwordCertificate)
+        {
             // Get document that we need to sign.
-            Document baseDocument = new Document(DataDir + "TestFile.docx");
+            Document baseDocument = new Document(srcDocument);
             DocumentBuilder builder = new DocumentBuilder(baseDocument);
 
             // Get sign person object by name of the person who must sign document.
             // This an example.
             // Actually, you need to return object from a data base.
-            SignPerson signPersonInfo = (from c in mSignPersonList where c.Name == signer select c).FirstOrDefault();
-            
+            SignPerson signPersonInfo = (from c in mSignPersonList where c.Name == signPerson select c).FirstOrDefault();
+
             // Create holder of certificate instanse base on your personal certificate.
             // This is the test certificate generated for this example.
-            CertificateHolder certificateHolder = CertificateHolder.Create(DataDir + "morzal.pfx", "aw");
+            CertificateHolder certificateHolder = CertificateHolder.Create(certificate, passwordCertificate);
 
             // Let's add signature to the document and sign it with personal certificate.
-            Document signedDocument = SignDocument(builder, certificateHolder, signPersonInfo);
+            SignDocument(builder, dstDocument, certificateHolder, signPersonInfo);
 
-            // Now we need add signed document to simple List.
-            WriteSignedDocument(signedDocument, "SignedDocument");
+            return new Document(dstDocument);
         }
 
         /// <summary>
         /// Add signature line to the document and sign it with personal certificate
         /// </summary>
         /// <param name="builder">Class that provides methods for create SignatureLine</param>
+        /// <param name="dstDocument">Path to signed document</param>
         /// <param name="certificateHolder">Holder of personal certificate instanse</param>
         /// <param name="signPersonInfo">SignPerson object which contains info about person who must sign document</param>
-        /// <returns>Returns signed document</returns>
-        private static Document SignDocument(DocumentBuilder builder, CertificateHolder certificateHolder, SignPerson signPersonInfo)
+        private static void SignDocument(DocumentBuilder builder, string dstDocument, CertificateHolder certificateHolder, SignPerson signPersonInfo)
         {
             // Add info about responsible person who sign document.
             SignatureLineOptions signatureLineOptions = new SignatureLineOptions();
@@ -71,17 +91,15 @@ namespace SigningDocumentExample
             signatureLine.Id = signPersonInfo.PersonId;
 
             // Save document with line signatures into temporary file for future signing.
-            builder.Document.Save(DataDir + "signedDocument.docx");
+            builder.Document.Save(dstDocument);
 
             // Link our signature line with personal signature.
             SignOptions signOptions = new SignOptions();
             signOptions.SignatureLineId = signPersonInfo.PersonId;
             signOptions.SignatureLineImage = signPersonInfo.Image;
 
-            // Sign our document.
-            DigitalSignatureUtil.Sign(DataDir + "signedDocument.docx", DataDir + "signedDocument.docx", certificateHolder, signOptions);
-
-            return new Document(DataDir + "signedDocument.docx");
+            // Sign document which contains signature line with personal certificate.
+            DigitalSignatureUtil.Sign(dstDocument, dstDocument, certificateHolder, signOptions);
         }
 
         /// <summary>
@@ -105,14 +123,26 @@ namespace SigningDocumentExample
         }
 
         /// <summary>
-        /// Add test data to our simple list
+        /// Create test data with info about sing persons
         /// </summary>
         private static void CreateTestData()
         {
             mSignPersonList = new List<SignPerson>
             {
-                new SignPerson { PersonId = Guid.NewGuid(), Name = "SignPerson 1", Position = "Head of Department", Image = ConvertHepler.ConverImageToByteArray(TestImage) },
-                new SignPerson { PersonId = Guid.NewGuid(), Name = "SignPerson 2", Position = "Deputy Head of Department", Image = ConvertHepler.ConverImageToByteArray(TestImage) }
+                new SignPerson
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "SignPerson 1",
+                    Position = "Head of Department",
+                    Image = ConvertHepler.ConverImageToByteArray(TestImage)
+                },
+                new SignPerson
+                {
+                    PersonId = Guid.NewGuid(),
+                    Name = "SignPerson 2",
+                    Position = "Deputy Head of Department",
+                    Image = ConvertHepler.ConverImageToByteArray(TestImage)
+                }
             };
         }
 
