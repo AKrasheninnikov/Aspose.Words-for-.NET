@@ -105,7 +105,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertField()
+        public void InsertFieldFieldCode()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertField(String)
@@ -116,7 +116,7 @@ namespace ApiExamples
             //ExFor:Field.Type
             //ExFor:Field.Remove
             //ExFor:FieldType
-            //ExSummary:Inserts a field into a document using DocumentBuilder.
+            //ExSummary:Inserts a field into a document using DocumentBuilder and FieldCode.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -149,26 +149,34 @@ namespace ApiExamples
         [TestCase(false)]
         public void GetFieldCode(bool nestedFields)
         {
+            //ExStart
+            //ExFor:Field.GetFieldCode
+            //ExFor:Field.GetFieldCode(bool)
+            //ExSummary:Shows how to get text between field start and field separator (or field end if there is no separator)
             Document doc = new Document(MyDir + "Field.FieldCode.docx");
 
             foreach (Field field in doc.Range.Fields)
             {
                 if (field.Type == FieldType.FieldIf)
                 {
-                    FieldIf fif = (FieldIf)field;
+                    FieldIf fieldIf = (FieldIf)field;
 
-                    Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fif.GetFieldCode());
+                    string fieldCode = fieldIf.GetFieldCode();
+                    Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fieldCode);//ExSkip
 
                     if (nestedFields)
                     {
-                        Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fif.GetFieldCode(true));
+                        fieldCode = fieldIf.GetFieldCode(true);
+                        Assert.AreEqual(" IF  MERGEFIELD Q223  > 0 \" (and additionally London Weighting of   MERGEFIELD  Q223 \\f £  per hour) \" \"\" ", fieldCode);//ExSkip
                     }
                     else
                     {
-                        Assert.AreEqual(" IF  > 0 \" (and additionally London Weighting of   per hour) \" \"\" ", fif.GetFieldCode(false));
+                        fieldCode = fieldIf.GetFieldCode(false);
+                        Assert.AreEqual(" IF  > 0 \" (and additionally London Weighting of   per hour) \" \"\" ", fieldCode);//ExSkip
                     }
                 }
             }
+            //ExEnd
         }
 
         [Test]
@@ -328,12 +336,16 @@ namespace ApiExamples
         [Test]
         public void InsertMathMl()
         {
+            //ExStart
+            //ExFor:DocumentBuilder.InsertHtml(String)
+            //ExSummary:Inserts MathMl into a document using.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            const String MathMl = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
+            const String mathMl = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msub><mi>a</mi><mrow><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mn>1</mn></mrow></msub></mrow></math>";
 
-            builder.InsertHtml(MathMl);
+            builder.InsertHtml(mathMl);
+            //ExEnd
 
             doc.Save(MyDir + @"\Artifacts\MathML.docx");
             doc.Save(MyDir + @"\Artifacts\MathML.pdf");
@@ -434,6 +446,7 @@ namespace ApiExamples
             Assert.AreEqual(100, formFields[2].CheckBoxSize);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void InsertCheckBoxEmptyName()
         {
@@ -1398,6 +1411,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void TableCellVerticalRotatedFarEastTextOrientation()
         {
@@ -1607,7 +1621,6 @@ namespace ApiExamples
             Assert.AreEqual(RelativeVerticalPosition.Page, shape.RelativeVerticalPosition);
             Assert.AreEqual(3.0, shape.Top);
             Assert.AreEqual(WrapType.Inline, shape.WrapType);
-            //Bug: If wraptype are not inline shape break his position (builder.InsertSignatureLine(options, RelativeHorizontalPosition.RightMargin, 2.0, RelativeVerticalPosition.Page, 3.0, WrapType.Inline);)
         }
 
         [Test]
@@ -1800,30 +1813,7 @@ namespace ApiExamples
             //ExEnd
 
             Assert.AreEqual("Footnote text.", doc.GetChildNodes(NodeType.Footnote, true)[0].ToString(SaveFormat.Text).Trim());
-        }
-
-        [Test]
-        public void AddFootnoteWithCustomMarks()
-        {
-            Document doc = new Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
-
-            builder.Write("Some text");
-
-            Footnote foot = new Footnote(doc, FootnoteType.Footnote);
-            foot.ReferenceMark = "242";
-
-            builder.InsertFootnote(FootnoteType.Footnote, "Footnote text.", foot.ReferenceMark);
-
-            MemoryStream dstStream = new MemoryStream();
-            doc.Save(dstStream, SaveFormat.Docx);
-
-            doc = new Document(dstStream);
-            foot = (Footnote)doc.GetChildNodes(NodeType.Footnote, true)[0];
-
-            Assert.IsFalse(foot.IsAuto);
-            Assert.AreEqual("242", foot.ReferenceMark);
-            Assert.AreEqual("242 Footnote text.\r", foot.GetText());
+            Assert.AreEqual("242 Footnote text.", doc.GetChildNodes(NodeType.Footnote, true)[1].ToString(SaveFormat.Text).Trim());
         }
 
         [Test]
@@ -1877,7 +1867,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void DeleteRowEx()
+        public void DeleteRow()
         {
             //ExStart
             //ExFor:DocumentBuilder.DeleteRow
@@ -1890,19 +1880,22 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: There is some unclear behavior
         [Test]
-        public void InsertDocumentEx()
+        public void InsertDocument()
         {
             //ExStart
-            //ExFor:DocumentBuilder.InsertDocument
-            //ExSummary:Shows how to insert a document into another document.
-            Document doc = new Document(MyDir + "Document.doc");
+            //ExFor:DocumentBuilder.InsertDocument(Document, ImportFormatMode)
+            //ExSummary:Shows how to insert a document content into another document.
+            Document doc = new Document(MyDir + "Document.docx");
             DocumentBuilder builder = new DocumentBuilder(doc);
-            Document docToInsert = new Document(MyDir + "DocumentBuilder.InsertedDoc.doc");
+
+            Document docToInsert = new Document(MyDir + "DocumentBuilder.InsertedDoc.docx");
 
             builder.InsertDocument(docToInsert, ImportFormatMode.KeepSourceFormatting);
             //ExEnd
+            builder.Document.Save(MyDir + @"\Artifacts\DocumentBuilder.InsertDocument.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\DocumentBuilder.InsertDocument.docx", MyDir + @"\Golds\DocumentBuilder.InsertDocument Gold.docx"));
         }
 
         [Test]
@@ -1921,7 +1914,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertOleObjectEx()
+        public void InsertOleObject()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertOleObject(String, Boolean, Boolean, Image)
@@ -1939,11 +1932,9 @@ namespace ApiExamples
             // Double click on the icon in the .doc to see the html.
             doc.Save(MyDir + @"\Artifacts\Document.InsertedOleObject.doc");
             //ExEnd
-
-            //ToDo: There is some bug, need more info for this (breaking html link)
-            //Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, false, null);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void InsertOleObjectException()
         {
@@ -1968,6 +1959,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void DataArraysWrongSize()
         {
@@ -1991,6 +1983,7 @@ namespace ApiExamples
             Assert.That(() => seriesColl.Add("AW Series 4", categories, new double[] { double.NaN, double.NaN, double.NaN, double.NaN, double.NaN }), Throws.TypeOf<ArgumentException>());
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void EmptyValuesInChartData()
         {
@@ -2017,7 +2010,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertChartRelativePositionEx()
+        public void InsertChartRelativePosition()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertChart(ChartType, RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
@@ -2032,11 +2025,11 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertFieldEx()
+        public void InsertFieldFieldType()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertField(FieldType, Boolean)
-            //ExSummary:Shows how to insert a field.
+            //ExSummary:Shows how to insert a field into a document using FieldType
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -2047,10 +2040,12 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //Todo: Add gold asserts
         [Test]
         public void InsertVideoWithUrl()
         {
+            //ExStart
+            //ExFor:DocumentBuilder.InsertOnlineVideo(String, Double, Double)
+            //ExSummary:Show how to insert online video into a document using video url
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -2061,11 +2056,15 @@ namespace ApiExamples
             double height = 270;
 
             builder.InsertOnlineVideo(url, width, height);
+            //ExEnd
         }
 
         [Test]
         public void InsertVideoWithHtmlCode()
         {
+            //ExStart
+            //ExFor:DocumentBuilder.InsertOnlineVideo(String, String, Byte[], Double, Double)
+            //ExSummary:Show how to insert online video into a document using html code
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -2083,6 +2082,7 @@ namespace ApiExamples
             String vimeoEmbedCode = "<iframe src=\"https://player.vimeo.com/video/52477838\" width=\"640\" height=\"360\" frameborder=\"0\" title=\"Aspose\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
 
             builder.InsertOnlineVideo(vimeoVideoUrl, vimeoEmbedCode, imageBytes, width, height);
+            //ExEnd
         }
     }
 }

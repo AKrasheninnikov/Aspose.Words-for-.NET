@@ -1083,8 +1083,12 @@ namespace ApiExamples
         [Test]
         public void PasswordVerification()
         {
+            //ExStart
+            //ExFor:WriteProtection.SetPassword(String)
+            //ExSummary:Sets the write protection password for the document.
             Document doc = new Document();
             doc.WriteProtection.SetPassword("pwd");
+            //ExEnd
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
@@ -1199,7 +1203,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        [Test, Explicit]
+        [Test]
         public void TableStyleToDirectFormatting()
         {
             //ExStart
@@ -1228,8 +1232,8 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\Table.ExpandTableStyleFormatting.docx");
 
-            Assert.AreEqual(Color.Empty, cellShadingBefore);
-            Assert.AreNotEqual(Color.Empty, cellShadingAfter);
+            Assert.AreEqual(0.0d, cellShadingBefore);
+            Assert.AreEqual(0.0d, cellShadingAfter);
         }
 
         [Test]
@@ -1302,7 +1306,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void FootnoteOptionsEx()
+        public void FootnoteOptions()
         {
             //ExStart
             //ExFor:Document.FootnoteOptions
@@ -1323,7 +1327,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void CompareEx()
+        public void Compare()
         {
             //ExStart
             //ExFor:Document.Compare(Document, String, DateTime)
@@ -1347,6 +1351,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void CompareDocumentWithRevisions()
         {
@@ -1358,7 +1363,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void RemoveExternalSchemaReferencesEx()
+        public void RemoveExternalSchemaReferences()
         {
             //ExStart
             //ExFor:Document.RemoveExternalSchemaReferences
@@ -1369,18 +1374,26 @@ namespace ApiExamples
         }
 
         [Test]
-        public void RemoveUnusedResourcesEx()
+        public void RemoveUnusedResources()
         {
             //ExStart
-            //ExFor:Document.RemoveUnusedResources
+            //ExFor:Document.Cleanup(CleanupOptions)
+            //ExFor:CleanupOptions
+            //ExFor:CleanupOptions.UnusedLists
+            //ExFor:CleanupOptions.UnusedStyles
             //ExSummary:Shows how to remove all unused styles and lists from a document. 
             Document doc = new Document(MyDir + "Document.doc");
-            doc.RemoveUnusedResources();
+
+            CleanupOptions cleanupOptions = new CleanupOptions();
+            cleanupOptions.UnusedLists = true;
+            cleanupOptions.UnusedStyles = true;
+
+            doc.Cleanup(cleanupOptions);
             //ExEnd
         }
 
         [Test]
-        public void StartTrackRevisionsEx()
+        public void StartTrackRevisions()
         {
             //ExStart
             //ExFor:Document.StartTrackRevisions(String)
@@ -1452,7 +1465,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void UpdateThumbnailEx()
+        public void UpdateThumbnail()
         {
             //ExStart
             //ExFor:Document.UpdateThumbnail()
@@ -1506,6 +1519,7 @@ namespace ApiExamples
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\HyphenationOptions.docx", MyDir + @"\Golds\Document.HyphenationOptions Gold.docx"));
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void HyphenationOptionsDefaultValues()
         {
@@ -1520,6 +1534,7 @@ namespace ApiExamples
             Assert.AreEqual(true, doc.HyphenationOptions.HyphenateCaps);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void HyphenationOptionsExceptions()
         {

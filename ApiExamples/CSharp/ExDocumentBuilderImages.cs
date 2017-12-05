@@ -17,7 +17,7 @@ namespace ApiExamples
     public class ExDocumentBuilderImages : ApiExampleBase
     {
         [Test]
-        public void InsertImageStreamRelativePositionEx()
+        public void InsertImageStreamRelativePosition()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Stream, RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
@@ -40,7 +40,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageFromByteArrayEx()
+        public void InsertImageFromByteArray()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Byte[])
@@ -59,7 +59,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageFromByteArrayCustomSizeEx()
+        public void InsertImageFromByteArrayCustomSize()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Byte[], Double, Double)
@@ -78,7 +78,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageFromByteArrayRelativePositionEx()
+        public void InsertImageFromByteArrayRelativePosition()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Byte[], RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
@@ -97,7 +97,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageFromImageCustomSizeEx()
+        public void InsertImageFromImageCustomSize()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Image, Double, Double)
@@ -120,7 +120,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageFromImageRelativePositionEx()
+        public void InsertImageFromImageRelativePosition()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Image, RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
@@ -143,7 +143,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageStreamCustomSizeEx()
+        public void InsertImageStreamCustomSize()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(Stream, Double, Double)
@@ -166,7 +166,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void InsertImageStringCustomSizeEx()
+        public void InsertImageStringCustomSize()
         {
             //ExStart
             //ExFor:DocumentBuilder.InsertImage(String, Double, Double)

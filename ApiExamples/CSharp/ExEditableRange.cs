@@ -75,6 +75,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void IncorrectStructureException()
         {
