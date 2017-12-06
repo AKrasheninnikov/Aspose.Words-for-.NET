@@ -112,7 +112,7 @@ namespace SigningDocumentExample
         }
 
         /// <summary>
-        /// Example method for add signed document to simple list
+        /// Example method for adding or updating signed document into simple list
         /// </summary>
         /// <param name="signedDocument">Signed document</param>
         /// <param name="documentName">Name of the signed document</param>
@@ -120,15 +120,24 @@ namespace SigningDocumentExample
         {
             // This just an example.
             // Actually, it will save or update object to data base.
-            mSignDocumentList = new List<SignDocument>
+            SignDocument existingDocument = (from c in mSignDocumentList where c.DocumentName == documentName select c).FirstOrDefault();
+
+            if (existingDocument != null)
             {
-                new SignDocument
+                existingDocument.Document = ConvertHepler.ConvertDocumentToByteArray(signedDocument);
+            }
+            else
+            {
+                mSignDocumentList = new List<SignDocument>
                 {
-                    DocumentId = Guid.NewGuid(),
-                    DocumentName = documentName,
-                    Document = ConvertHepler.ConvertDocumentToByteArray(signedDocument)
-                }
-            };
+                    new SignDocument
+                    {
+                        DocumentId = Guid.NewGuid(),
+                        DocumentName = documentName,
+                        Document = ConvertHepler.ConvertDocumentToByteArray(signedDocument)
+                    }
+                };
+            }
         }
 
         /// <summary>
