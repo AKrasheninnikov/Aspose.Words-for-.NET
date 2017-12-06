@@ -76,6 +76,10 @@ namespace ApiExamples
         [Test]
         public void CreateRevNumFieldWithFieldBuilder()
         {
+            //ExStart
+            //ExFor:FieldBuilder(FieldType)
+            //ExFor:FieldBuilder.BuildAndInsert(Run)
+            //ExSummary:Builds and inserts a field into the document before the specified inline node
             Document doc = new Document();
             Run run = DocumentHelper.InsertNewRun(doc, " Hello World!", 0);
 
@@ -83,7 +87,7 @@ namespace ApiExamples
             fieldBuilder.BuildAndInsert(run);
 
             doc.UpdateFields();
-
+            //ExEnd
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
             
@@ -91,12 +95,14 @@ namespace ApiExamples
             Assert.NotNull(revNum);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void CreateRevNumFieldByDocumentBuilder()
         {
             Document doc = new Document();
-            DocumentBuilder b = new DocumentBuilder(doc);
-            b.InsertField("REVNUM MERGEFORMAT");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertField("REVNUM MERGEFORMAT");
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
@@ -105,11 +111,11 @@ namespace ApiExamples
             Assert.NotNull(revNum);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void CreateInfoFieldWithFieldBuilder()
         {
             Document doc = new Document();
-
             Run run = DocumentHelper.InsertNewRun(doc, " Hello World!", 0);
 
             FieldBuilder fieldBuilder = new FieldBuilder(FieldType.FieldInfo);
@@ -124,12 +130,14 @@ namespace ApiExamples
             Assert.NotNull(info);
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
-        public void CreateInfoFieldByDocumentBuilder()
+        public void CreateInfoFieldWithDocumentBuilder()
         {
             Document doc = new Document();
-            DocumentBuilder b = new DocumentBuilder(doc);
-            b.InsertField("INFO MERGEFORMAT");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertField("INFO MERGEFORMAT");
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
@@ -175,8 +183,9 @@ namespace ApiExamples
         {
             // Create a blank document.
             Document doc = new Document();
-            DocumentBuilder b = new DocumentBuilder(doc);
-            b.InsertField("MERGEFIELD Date");
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertField("MERGEFIELD Date");
 
             //ExStart
             //ExId:ChangeCurrentCulture
@@ -276,17 +285,27 @@ namespace ApiExamples
                 return ReplaceAction.Skip;
             }
         }
-
         //ExEnd
 
-        //Bug: there is no isAfter parameter at BuildAndInsert(exception), need more info from dev
         [Test]
         public void InsertFieldWithFieldBuilder()
         {
+            //ExStart
+            //ExFor:FieldArgumentBuilder
+            //ExFor:FieldArgumentBuilder.AddField(FieldBuilder)
+            //ExFor:FieldArgumentBuilder.AddText(String)
+            //ExFor:FieldBuilder.AddArgument(FieldArgumentBuilder)
+            //ExFor:FieldBuilder.AddArgument(String)
+            //ExFor:FieldBuilder.AddArgument(Int32)
+            //ExFor:FieldBuilder.AddArgument(Double)
+            //ExFor:FieldBuilder.AddSwitch(String, String)
+            //ExSummary:Inserts a field into a document using field builder constructor
             Document doc = new Document();
 
-            //Add some text into the paragraph
-            Run run = DocumentHelper.InsertNewRun(doc, " Hello World!", 0);
+            //Add text into the paragraph
+            Paragraph para = doc.FirstSection.Body.Paragraphs[0];
+            Run run = new Run(doc) { Text = " Hello World!" };
+            para.AppendChild(run);
 
             FieldArgumentBuilder argumentBuilder = new FieldArgumentBuilder();
             argumentBuilder.AddField(new FieldBuilder(FieldType.FieldMergeField));
@@ -296,8 +315,10 @@ namespace ApiExamples
             fieldBuilder.AddArgument(argumentBuilder).AddArgument("=").AddArgument("BestField").AddArgument(10).AddArgument(20.0).AddSwitch("12", "13").BuildAndInsert(run);
 
             doc.UpdateFields();
+            //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void InsertFieldWithFieldBuilderException()
         {
