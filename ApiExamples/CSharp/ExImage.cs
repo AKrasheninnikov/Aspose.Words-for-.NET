@@ -33,7 +33,7 @@ namespace ApiExamples
             builder.InsertImage(MyDir + @"\Images\Aspose.Words.gif");
             builder.Writeln();
 
-            builder.Write("Image from an internet url, automatically downloaded for you: ");
+            builder.Write("Image from an Internet url, automatically downloaded for you: ");
             builder.InsertImage("http://www.aspose.com/Images/aspose-logo.jpg");
             builder.Writeln();
 

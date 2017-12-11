@@ -27,7 +27,7 @@ namespace ApiExamples
             HttpResponse Response = null;
 
             //ExStart
-            //ExFor:MailMerge.Execute(String[],Object[])
+            //ExFor:MailMerge.Execute(String[], Object[])
             //ExFor:ContentDisposition
             //ExFor:Document.Save(HttpResponse,String,ContentDisposition,SaveOptions)
             //ExId:MailMergeArray
@@ -69,19 +69,21 @@ namespace ApiExamples
         }
 
         [Test]
-        [TestCase(true, "first line\rsecond line\rthird line\f")]
-        [TestCase(false, " first line\rsecond line\rthird line \f")]
         public void TrimWhiteSpaces(bool option, String expectedText)
         {
+            //ExStart
+            //ExFor:MailMerge.TrimWhitespaces
+            //ExSummary:Shows how to trimmed whitespaces from mail merge values.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
             builder.InsertField("MERGEFIELD field", null);
 
-            doc.MailMerge.TrimWhitespaces = option;
+            doc.MailMerge.TrimWhitespaces = true;
             doc.MailMerge.Execute(new[] { "field" }, new object[] { " first line\rsecond line\rthird line " });
 
-            Assert.AreEqual(expectedText, doc.GetText());
+            Assert.AreEqual("first line\rsecond line\rthird line\f", doc.GetText());
+            //ExEnd
         }
 
         [Test]
@@ -120,20 +122,12 @@ namespace ApiExamples
             //ExEnd
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void ExecuteDataViewCaller()
-        {
-            this.ExecuteDataView();
-        }
-
-        //ExStart
-        //ExFor:MailMerge.Execute(DataView)
-        //ExSummary:Executes mail merge from an ADO.NET DataView.
         public void ExecuteDataView()
         {
+            //ExStart
+            //ExFor:MailMerge.Execute(DataView)
+            //ExSummary:Executes mail merge from an ADO.NET DataView.
             // Open the document that we want to fill with data.
             Document doc = new Document(MyDir + "MailMerge.ExecuteDataView.doc");
 
@@ -205,23 +199,15 @@ namespace ApiExamples
             //ExEnd
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void ExecuteWithRegionsDataTableCaller()
-        {
-            this.ExecuteWithRegionsDataTable();
-        }
-
-        //ExStart
-        //ExFor:Document.MailMerge
-        //ExFor:MailMerge.ExecuteWithRegions(DataTable)
-        //ExFor:MailMerge.ExecuteWithRegions(DataView)
-        //ExId:MailMergeRegions
-        //ExSummary:Executes a mail merge with repeatable regions.
         public void ExecuteWithRegionsDataTable()
         {
+            //ExStart
+            //ExFor:Document.MailMerge
+            //ExFor:MailMerge.ExecuteWithRegions(DataTable)
+            //ExFor:MailMerge.ExecuteWithRegions(DataView)
+            //ExId:MailMergeRegions
+            //ExSummary:Executes a mail merge with repeatable regions.
             Document doc = new Document(MyDir + "MailMerge.ExecuteWithRegions.doc");
 
             int orderId = 10444;
@@ -355,6 +341,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void GetFieldNames()
         {
@@ -386,6 +373,7 @@ namespace ApiExamples
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         [TestCase(true, "{{ testfield1 }}value 1{{ testfield3 }}\f")]
         [TestCase(false, "\u0013MERGEFIELD \"testfield1\"\u0014«testfield1»\u0015value 1\u0013MERGEFIELD \"testfield3\"\u0014«testfield3»\u0015\f")]
@@ -402,7 +390,7 @@ namespace ApiExamples
 
             DataTable table = new DataTable("Test");
             table.Columns.Add("testfield2");
-            table.Rows.Add(new object[] { "value 1" });
+            table.Rows.Add("value 1");
 
             doc.MailMerge.Execute(table);
 
@@ -459,6 +447,9 @@ namespace ApiExamples
         [Test]
         public void TestTagsReplacedEventShouldRisedWithUseNonMergeFieldsOption()
         {
+            //ExStart
+            //ExFor:IMailMergeCallback
+            //ExSummary:Shows how to define custom logic for handling events during mail merge.
             Document document = new Document();
             document.MailMerge.UseNonMergeFields = true;
 
@@ -468,22 +459,6 @@ namespace ApiExamples
             document.MailMerge.Execute(new String[0], new object[0]);
 
             Assert.AreEqual(1, mailMergeCallbackStub.TagsReplacedCounter);
-        }
-
-        [Test]
-        [TestCase("Region1")]
-        [TestCase("NestedRegion1")]
-        public void GetRegionsByName(String regionName)
-        {
-            Document doc = new Document(MyDir + "MailMerge.RegionsByName.doc");
-
-            ArrayList regions = doc.MailMerge.GetRegionsByName(regionName);
-            Assert.AreEqual(2, regions.Count);
-
-            foreach (MailMergeRegionInfo region in regions)
-            {
-                Assert.AreEqual(regionName, region.Name);
-            }
         }
 
         private class MailMergeCallbackStub : IMailMergeCallback
@@ -500,5 +475,6 @@ namespace ApiExamples
 
             private int mTagsReplacedCounter;
         }
+        //ExEnd
     }
 }

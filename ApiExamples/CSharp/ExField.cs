@@ -355,7 +355,6 @@ namespace ApiExamples
         {
             //Set license for Aspose.BarCode
             Aspose.BarCode.License licenceBarCode = new Aspose.BarCode.License();
-
             licenceBarCode.SetLicense(@"X:\awnet\TestData\Licenses\Aspose.Total.lic");
 
             //bind the pdf document
@@ -391,12 +390,12 @@ namespace ApiExamples
         public void UpdateFieldIgnoringMergeFormat()
         {
             //ExStart
-            //ExFor:Field.Update(bool)
+            //ExFor:Field.Update(Bool)
             //ExSummary:Shows a way to update a field ignoring the MERGEFORMAT switch
             LoadOptions loadOptions = new LoadOptions();
             loadOptions.PreserveIncludePictureField = true;
 
-            Document doc = new Document(MyDir + "UpdateFieldIgnoringMergeFormat.docx", loadOptions);
+            Document doc = new Document(MyDir + "Field.UpdateFieldIgnoringMergeFormat.docx", loadOptions);
 
             foreach (Field field in doc.Range.Fields)
             {
@@ -410,13 +409,22 @@ namespace ApiExamples
             }
 
             doc.UpdateFields();
-            doc.Save(MyDir + @"\Artifacts\UpdateFieldIgnoringMergeFormat.docx");
+            doc.Save(MyDir + @"\Artifacts\Field.UpdateFieldIgnoringMergeFormat.docx");
             //ExEnd
         }
 
         [Test]
         public void FieldFormat()
         {
+            //ExStart
+            //ExFor:Field.Format
+            //ExFor:FieldFormat
+            //ExFor:FieldFormat.DateTimeFormat
+            //ExFor:FieldFormat.NumericFormat
+            //ExFor:FieldFormat.GeneralFormats
+            //ExFor:GeneralFormat
+            //ExFor:GeneralFormatCollection.Add(GeneralFormat)
+            //ExSummary:Shows how to formatting fields
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -427,6 +435,7 @@ namespace ApiExamples
             format.DateTimeFormat = "dddd, MMMM dd, yyyy";
             format.NumericFormat = "0.#";
             format.GeneralFormats.Add(GeneralFormat.CharFormat);
+            //ExEnd
 
             MemoryStream dstStream = new MemoryStream();
             doc.Save(dstStream, SaveFormat.Docx);
@@ -442,9 +451,13 @@ namespace ApiExamples
         [Test]
         public void UnlinkAllFieldsInDocument()
         {
-            Document doc = new Document(MyDir + "UnlinkFields.docx");
+            //ExStart
+            //ExFor:Document.UnlinkFields
+            //ExSummary:Shows how to unlink all fields in the document
+            Document doc = new Document(MyDir + "Field.UnlinkFields.docx");
 
             doc.UnlinkFields();
+            //ExEnd
 
             String paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
             Assert.AreEqual("Fields.Docx   Элементы указателя не найдены.     1.\r", paraWithFields);
@@ -453,12 +466,16 @@ namespace ApiExamples
         [Test]
         public void UnlinkAllFieldsInRange()
         {
-            Document doc = new Document(MyDir + "UnlinkFields.docx");
+            //ExStart
+            //ExFor:Range.UnlinkFields
+            //ExSummary:Shows how to unlink all fields in range
+            Document doc = new Document(MyDir + "Field.UnlinkFields.docx");
 
             Section newSection = (Section)doc.Sections[0].Clone(true);
             doc.Sections.Add(newSection);
 
             doc.Sections[1].Range.UnlinkFields();
+            //ExEnd
 
             String secWithFields = DocumentHelper.GetSectionText(doc, 1);
             Assert.AreEqual(secWithFields, "Fields.Docx   Элементы указателя не найдены.     3.\rОшибка! Не указана последовательность.    Fields.Docx   Элементы указателя не найдены.     4.\r\r\r\r\r\f");
@@ -467,8 +484,13 @@ namespace ApiExamples
         [Test]
         public void UnlinkSingleField()
         {
+            //ExStart
+            //ExFor:Field.Unlink
+            //ExSummary:Shows how to unlink specific field
             Document doc = new Document(MyDir + "UnlinkFields.docx");
+
             doc.Range.Fields[1].Unlink();
+            //ExEnd
 
             String paraWithFields = DocumentHelper.GetParagraphText(doc, 0);
             Assert.AreEqual(paraWithFields, "\u0013 FILENAME  \\* Caps  \\* MERGEFORMAT \u0014Fields.Docx\u0015   Элементы указателя не найдены.     \u0013 LISTNUM  LegalDefault \u0015\r");
@@ -518,7 +540,7 @@ namespace ApiExamples
                 }
             }
 
-            doc.Save(MyDir + "Field.UpdateTocPages Out.docx");
+            doc.Save(MyDir + @"\Artifacts\Field.UpdateTocPages.docx");
         }
 
         private void RemoveSequence(Node start, Node end)

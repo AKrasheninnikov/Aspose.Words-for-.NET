@@ -113,5 +113,4 @@ namespace ApiExamples
         private static StreamWriter gLog;
     }
 }
-
 //ExEnd

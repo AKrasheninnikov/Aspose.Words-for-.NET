@@ -13,27 +13,25 @@ namespace ApiExamples
     [TestFixture]
     internal class ExHtmlLoadOptions : ApiExampleBase
     {
-        //ToDo: Add gold asserts
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void SupportVml(bool supportVml)
         {
             //ExStart
             //ExFor:HtmlLoadOptions.SupportVml
-            //ExSummary:Demonstrates how to parse html document with conditional comments like "&lt;!--[if gte vml 1]&gt;" and "&lt;![if !vml]&gt;"
+            //ExSummary:Shows how to parse HTML document with conditional comments like "<!--[if gte vml 1]>" and "<![if !vml]>"
             HtmlLoadOptions loadOptions = new HtmlLoadOptions();
 
-            //If SupportVml = true, then we parse "&lt;!--[if gte vml 1]&gt;", else parse "&lt;![if !vml]&gt;"
-            loadOptions.SupportVml = supportVml;
+            //If value is true, then we parse "<!--[if gte vml 1]>", else parse "<![if !vml]>"
+            loadOptions.SupportVml = true;
             //Wait for a response, when loading external resources
             loadOptions.WebRequestTimeout = 1000;
 
-            Document doc = new Document(MyDir + "Shape.VmlAndDml.htm", loadOptions);
+            Document doc = new Document(MyDir + "Shape.VmlAndDml.html", loadOptions);
             doc.Save(MyDir + @"\Artifacts\Shape.VmlAndDml.docx");
             //ExEnd
         }
 
+        //This is just a test, no need adding example tags.
         [Test]
         public void WebRequestTimeoutDefaultValue()
         {

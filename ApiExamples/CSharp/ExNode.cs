@@ -167,25 +167,17 @@ namespace ApiExamples
             //ExEnd
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void RecurseAllNodesCaller()
-        {
-            this.RecurseAllNodes();
-        }
-
-        //ExStart
-        //ExFor:Node.NextSibling
-        //ExFor:CompositeNode.FirstChild
-        //ExFor:Node.IsComposite
-        //ExFor:CompositeNode.IsComposite
-        //ExFor:Node.NodeTypeToString
-        //ExId:RecurseAllNodes            
-        //ExSummary:Shows how to efficiently visit all direct and indirect children of a composite node.
         public void RecurseAllNodes()
         {
+            //ExStart
+            //ExFor:Node.NextSibling
+            //ExFor:CompositeNode.FirstChild
+            //ExFor:Node.IsComposite
+            //ExFor:CompositeNode.IsComposite
+            //ExFor:Node.NodeTypeToString
+            //ExId:RecurseAllNodes            
+            //ExSummary:Shows how to efficiently visit all direct and indirect children of a composite node.
             // Open a document.
             Document doc = new Document(MyDir + "Node.RecurseAllNodes.doc");
 
@@ -583,7 +575,7 @@ namespace ApiExamples
             builder.Writeln("The third paragraph");
             builder.Writeln("The fourth paragraph");
 
-            // This causes unexpected behavior, the fourth pargraph in the collection is not visited.
+            // This causes unexpected behavior, the fourth paragraph in the collection is not visited.
             foreach (Paragraph para in builder.Document.FirstSection.Body.GetChildNodes(NodeType.Paragraph, true))
             {
                 if (para.Range.Text.Contains("third"))

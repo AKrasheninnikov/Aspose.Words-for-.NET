@@ -8,15 +8,12 @@
 //ExStart
 //ExId:RenameMergeFields
 //ExSummary:Shows how to rename merge fields in a Word document.
-
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using Aspose.Words;
 using Aspose.Words.Fields;
 using NUnit.Framework;
-
-//ExSkip
 
 namespace ApiExamples
 {

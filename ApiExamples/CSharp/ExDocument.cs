@@ -217,7 +217,7 @@ namespace ApiExamples
             //ExFor:Document.#ctor(Stream, LoadOptions)
             //ExFor:LoadOptions.#ctor(LoadFormat, String, String)
             //ExFor:LoadFormat
-            //ExSummary:Shows how to insert the HTML conntents from a web page into a new document.
+            //ExSummary:Shows how to insert the HTML contents from a web page into a new document.
             // The url of the page to load 
             String url = "http://www.aspose.com/";
 
@@ -646,7 +646,8 @@ namespace ApiExamples
             //ExFor:Document.OriginalFileName
             //ExFor:FileFormatInfo.LoadFormat
             //ExSummary:Shows how to use the FileFormatUtil methods to detect the format of a document without any extension and save it with the correct file extension.
-            // Load the document without a file extension into a stream and use the DetectFileFormat method to detect it's format. These are both times where you might need extract the file format as it's not visible
+            // Load the document without a file extension into a stream and use the DetectFileFormat method to detect it's format. 
+            // These are both times where you might need extract the file format as it's not visible
             FileStream docStream = File.OpenRead(MyDir + "Document.FileWithoutExtension"); // The file format of this document is actually ".doc"
             FileFormatInfo info = FileFormatUtil.DetectFileFormat(docStream);
 
@@ -737,7 +738,7 @@ namespace ApiExamples
                 doc.AppendDocument(srcDoc, ImportFormatMode.UseDestinationStyles);
 
                 // In automation you were required to insert a new section break at this point, however in Aspose.Words we 
-                // don't need to do anything here as the appended document is imported as separate sectons already.
+                // don't need to do anything here as the appended document is imported as separate sections already.
 
                 // If this is the second document or above being appended then unlink all headers footers in this section 
                 // from the headers and footers of the previous section.
@@ -975,7 +976,7 @@ namespace ApiExamples
             doc.MailMerge.Execute(new String[] { "Date2" }, new object[] { new DateTime(2011, 1, 01) });
             //ExEnd
 
-            // Verify the field update behaviour is correct.
+            // Verify the field update behavior is correct.
             Assert.AreEqual("Saturday, 1 January 2011 - Samstag, 1 Januar 2011", doc.Range.Text.Trim());
 
             // Restore the original culture.
@@ -1339,7 +1340,7 @@ namespace ApiExamples
             if (doc1.Revisions.Count == 0 && doc2.Revisions.Count == 0)
                 doc1.Compare(doc2, "authorName", DateTime.Now);
 
-            // If doc1 and doc2 are different, doc1 now has some revisons after the comparison, which can now be viewed and processed.
+            // If doc1 and doc2 are different, doc1 now has some revisions after the comparison, which can now be viewed and processed.
             foreach (Revision r in doc1.Revisions)
                 Console.WriteLine(r.RevisionType);
 
@@ -1495,7 +1496,7 @@ namespace ApiExamples
             //ExFor:HyphenationOptions.ConsecutiveHyphenLimit
             //ExFor:HyphenationOptions.HyphenationZone
             //ExFor:HyphenationOptions.HyphenateCaps
-            //ExSummary:Shows how to to configure document hyphenation options.
+            //ExSummary:Shows how to configure document hyphenation options.
             Document doc = new Document();
             // Create new Run with text that we want to move to the next line using the hyphen
             Run run = new Run(doc) { Text = "poqwjopiqewhpefobiewfbiowefob ewpj weiweohiewobew ipo efoiewfihpewfpojpief pijewfoihewfihoewfphiewfpioihewfoihweoihewfpj" };
@@ -1623,7 +1624,7 @@ namespace ApiExamples
             //ExFor:Theme.MinorFonts
             //ExSummary:Show how to change document theme options.
             Document doc = new Document();
-            //Get document theme and do something usefull
+            // Get document theme and do something useful
             Theme theme = doc.Theme;
 
             theme.Colors.Accent1 = Color.Black;

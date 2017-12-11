@@ -20,7 +20,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExReportingEngine : ApiExampleBase
     {
-        private readonly String _image = MyDir + @"\Images\Test_636_852.gif";
+        private readonly String _image = ImageDir + "Test_636_852.gif";
         private readonly String _doc = MyDir + "ReportingEngine.TestDataTable.docx";
 
         [Test]

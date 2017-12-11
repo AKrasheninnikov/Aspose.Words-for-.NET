@@ -94,7 +94,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [Ignore("Fix is on the way")]
+        [Ignore("Run only when the printer driver is installed")]
         public void DefaultPaperTray()
         {
             //ExStart
@@ -118,7 +118,8 @@ namespace ApiExamples
             //ExEnd
         }
 
-        [Test, Explicit]
+        [Test]
+        [Ignore("Run only when the printer driver is installed")]
         public void PaperTrayForDifferentPaperType()
         {
             //ExStart
@@ -354,7 +355,7 @@ namespace ApiExamples
             section.PageSetup.PageStartingNumber = 5;
             section.PageSetup.PageNumberStyle = NumberStyle.UppercaseRoman;
 
-            // Create a header for the section section. 
+            // Create a header for the section. 
             // The page number will look like " - 10 - ".
             builder.MoveToSection(1);
             builder.MoveToHeaderFooter(HeaderFooterType.HeaderPrimary);

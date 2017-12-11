@@ -18,8 +18,6 @@ using Aspose.Words;
 using Aspose.Words.Fields;
 using NUnit.Framework;
 
-//ExSkip
-
 namespace ApiExamples
 {
     /// <summary>
@@ -145,7 +143,7 @@ namespace ApiExamples
         }
 
         /// <summary>
-        /// True if the hyperlink's target is a bookmark inside the document. False if the hyperlink is a url.
+        /// True if the hyperlinks target is a bookmark inside the document. False if the hyperlink is a url.
         /// </summary>
         internal bool IsLocal
         {

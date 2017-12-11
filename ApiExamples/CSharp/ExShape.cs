@@ -387,7 +387,7 @@ namespace ApiExamples
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
-            Shape image = builder.InsertImage(MyDir + @"\Images\dotnet-logo.png");
+            Shape image = builder.InsertImage(ImageDir + "dotnet-logo.png");
 
             // Loop through all single shapes inside document.
             foreach (Shape shape in doc.GetChildNodes(NodeType.Shape, true))
@@ -410,7 +410,7 @@ namespace ApiExamples
 
             doc.CompatibilityOptions.OptimizeFor(msWordVersion);
 
-            Shape image = builder.InsertImage(MyDir + @"\Images\dotnet-logo.png");
+            Shape image = builder.InsertImage(ImageDir + "dotnet-logo.png");
 
             // Loop through all single shapes inside document.
             foreach (Shape shape in doc.GetChildNodes(NodeType.Shape, true))

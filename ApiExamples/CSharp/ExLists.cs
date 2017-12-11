@@ -16,7 +16,7 @@ namespace ApiExamples
     [TestFixture]
     public class ExLists : ApiExampleBase
     {
-        private readonly String _image = MyDir + @"\Images\Test_636_852.gif";
+        private readonly String _image = ImageDir + "Test_636_852.gif";
 
         [Test]
         public void ApplyDefaultBulletsAndNumbers()
@@ -29,7 +29,6 @@ namespace ApiExamples
             //ExFor:ListFormat.ListOutdent
             //ExFor:ListFormat.RemoveNumbers
             //ExSummary:Shows how to apply default bulleted or numbered list formatting to paragraphs when using DocumentBuilder.
-
             DocumentBuilder builder = new DocumentBuilder();
 
             builder.Writeln("Aspose.Words allows:");
@@ -148,7 +147,7 @@ namespace ApiExamples
             Aspose.Words.Lists.List numberedList = doc.Lists.Add(ListTemplate.NumberDefault);
             builder.ListFormat.List = numberedList;
             builder.ParagraphFormat.StyleIdentifier = StyleIdentifier.Normal;
-            builder.Writeln("Numebered list item 1.");
+            builder.Writeln("Numbered list item 1.");
 
             // Create a bulleted list.
             Aspose.Words.Lists.List bulletedList = doc.Lists.Add(ListTemplate.BulletDefault);
@@ -511,22 +510,14 @@ namespace ApiExamples
         }
         //ExEnd
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void PrintOutAllListsCaller()
-        {
-            this.PrintOutAllLists();
-        }
-
-        //ExStart
-        //ExFor:ListCollection
-        //ExFor:ListCollection.AddCopy(List)
-        //ExFor:ListCollection.GetEnumerator
-        //ExSummary:Enumerates through all lists defined in one document and creates a sample of those lists in another document.
         public void PrintOutAllLists()
         {
+            //ExStart
+            //ExFor:ListCollection
+            //ExFor:ListCollection.AddCopy(List)
+            //ExFor:ListCollection.GetEnumerator
+            //ExSummary:Enumerates through all lists defined in one document and creates a sample of those lists in another document.
             // You can use any of your documents to try this little program out.
             Document srcDoc = new Document(MyDir + "Lists.PrintOutAllLists.doc");
 
@@ -755,9 +746,9 @@ namespace ApiExamples
         public void CreatePictureBullet()
         {
             //ExStart
-            //ExFor: ListLevel.CreatePictureBullet
-            //ExFor: ListLevel.DeletePictureBullet
-            //ExSummary: Shows how to creating and deleting picture bullet with custom image
+            //ExFor:ListLevel.CreatePictureBullet
+            //ExFor:ListLevel.DeletePictureBullet
+            //ExSummary:Shows how to creating and deleting picture bullet with custom image
             Document doc = new Document();
 
             // Create a list with template

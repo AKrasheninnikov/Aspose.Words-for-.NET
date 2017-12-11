@@ -74,24 +74,16 @@ namespace ApiExamples
             Assert.Greater(tables.Count, 0);
         }
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void CalcuateDepthOfNestedTablesCaller()
-        {
-            this.CalcuateDepthOfNestedTables();
-        }
-
-        //ExStart
-        //ExFor:Node.GetAncestor(NodeType)
-        //ExFor:Table.NodeType
-        //ExFor:Cell.Tables
-        //ExFor:TableCollection
-        //ExFor:NodeCollection.Count
-        //ExSummary:Shows how to find out if a table contains another table or if the table itself is nested inside another table.
         public void CalcuateDepthOfNestedTables()
         {
+            //ExStart
+            //ExFor:Node.GetAncestor(NodeType)
+            //ExFor:Table.NodeType
+            //ExFor:Cell.Tables
+            //ExFor:TableCollection
+            //ExFor:NodeCollection.Count
+            //ExSummary:Shows how to find out if a table contains another table or if the table itself is nested inside another table.
             Document doc = new Document(MyDir + "Table.NestedTables.doc");
             int tableIndex = 0;
 
@@ -169,20 +161,12 @@ namespace ApiExamples
         }
         //ExEnd
 
-        /// <summary>
-        /// This calls the below method to resolve skipping of [Test] in VB.NET.
-        /// </summary>
         [Test]
-        public void ConvertTextboxToTableCaller()
-        {
-            this.ConvertTextboxToTable();
-        }
-
-        //ExStart
-        //ExId:TextboxToTable
-        //ExSummary:Shows how to convert a textbox to a table and retain almost identical formatting. This is useful for HTML export.
         public void ConvertTextboxToTable()
         {
+            //ExStart
+            //ExId:TextboxToTable
+            //ExSummary:Shows how to convert a textbox to a table and retain almost identical formatting. This is useful for HTML export.
             // Open the document
             Document doc = new Document(MyDir + "Shape.Textbox.doc");
 
@@ -694,7 +678,7 @@ namespace ApiExamples
         {
             //ExStart
             //ExId:FixTablesDefaultFixedColumnWidth
-            //ExSummary:Shows how to revert the default behaviour of table sizing to use column widths.
+            //ExSummary:Shows how to revert the default behavior of table sizing to use column widths.
             Document doc = new Document();
             DocumentBuilder builder = new DocumentBuilder(doc);
 
@@ -706,7 +690,7 @@ namespace ApiExamples
             builder.CellFormat.Shading.BackgroundPatternColor = Color.Red;
 
             builder.InsertCell();
-            // This will cause the table to be structured using column widths as in previous verisons
+            // This will cause the table to be structured using column widths as in previous versions
             // instead of fitted to the page width like in the newer versions.
             table.AutoFit(AutoFitBehavior.FixedColumnWidths);
 
@@ -878,7 +862,7 @@ namespace ApiExamples
             // row and one cell, therefore this method creates them for us.
 
             // Instead we will handle creating the row and table ourselves. This would be the best way to do this
-            // if we were creating a table inside an algorthim for example.
+            // if we were creating a table inside an algorithm for example.
             Row row = new Row(doc);
             row.RowFormat.AllowBreakAcrossPages = true;
             table.AppendChild(row);
@@ -1029,7 +1013,7 @@ namespace ApiExamples
             //ExStart
             //ExId:MergeCellRange
             //ExSummary:Merges the range of cells between the two specified cells.
-            // We want to merge the range of cells found inbetween these two cells.
+            // We want to merge the range of cells found in between these two cells.
             Cell cellStartRange = table.Rows[2].Cells[2];
             Cell cellEndRange = table.Rows[3].Cells[3];
 

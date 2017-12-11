@@ -24,9 +24,9 @@ namespace ApiExamples
         [TestCase(SaveFormat.Epub)]
         public void ExportPageMargins(SaveFormat saveFormat)
         {
-            var doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
+            Document doc = new Document(MyDir + "HtmlSaveOptions.ExportPageMargins.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.SaveFormat = saveFormat;
             saveOptions.ExportPageMargins = true;
 
@@ -38,15 +38,14 @@ namespace ApiExamples
         #region HtmlOfficeMathOutputMode
 
         [Test]
-        [Ignore("Fix is on the way")]
         [TestCase(SaveFormat.Html, HtmlOfficeMathOutputMode.Image)]
         [TestCase(SaveFormat.Mhtml, HtmlOfficeMathOutputMode.MathML)]
         [TestCase(SaveFormat.Epub, HtmlOfficeMathOutputMode.Text)]
         public void ExportOfficeMath(SaveFormat saveFormat, HtmlOfficeMathOutputMode outputMode)
         {
-            var doc = new Document(MyDir + "OfficeMath.docx");
+            Document doc = new Document(MyDir + "OfficeMath.docx");
 
-            var saveOptions = new HtmlSaveOptions();
+            HtmlSaveOptions saveOptions = new HtmlSaveOptions();
             saveOptions.OfficeMathOutputMode = outputMode;
 
             Save(doc, @"\Artifacts\HtmlSaveOptions.ExportToHtmlUsingImage." + saveFormat.ToString().ToLower(), saveFormat, saveOptions);
@@ -132,7 +131,7 @@ namespace ApiExamples
                     return inputDoc;
             }
 
-            return null;
+            return inputDoc;
         }
 
         [Test]
